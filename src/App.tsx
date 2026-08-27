@@ -272,6 +272,18 @@ const resourceCards = [
     "Read the guide",
     "/blog/evaluate-an-assistant-on-real-work",
   ],
+  [
+    "Introducing Nella",
+    "Understand the system, the firm-specific build and the human support around the technology.",
+    "Read the guide",
+    "/blog/introducing-nella",
+  ],
+  [
+    "How Nella works under the hood",
+    "A technical tour of memory, persistence, model routing, approvals, observability and cost control.",
+    "Read the technical note",
+    "/blog/how-nella-works-under-the-hood",
+  ],
 ] as const;
 
 const privacyQuestions = [
@@ -362,7 +374,7 @@ const aboutTracks = [
   [
     "Europa Legal Commons",
     "Legal-domain experience",
-    "Our work on Europa Legal Commons explored how AI systems can operate within European legal and regulatory contexts while remaining grounded in structured legal material and clearly defined boundaries. It is legal-domain experience, not a claim that we have already run a 500-person law-firm deployment.",
+    "Our work on Europa Legal Commons turned that question into a public, versioned corpus for EU/EEA B2B software teams: structured starting documents, source-aware metadata, clause maps and an agent guide. It taught us to make scope, provenance, versioning and professional review visible before asking an AI system to do more. It is legal-domain experience, not a claim that we have already run a 500-person law-firm deployment.",
     "",
   ],
 ] as const;
@@ -407,6 +419,26 @@ const blogPosts = [
     readTime: "8 min read",
     source:
       "Nella evaluation principles; methodology and results should be published when evidence exists.",
+  },
+  {
+    slug: "introducing-nella",
+    title: "Introducing Nella: a private support system for law firms",
+    dek: "Nella is a managed system with a shared foundation, firm-specific configuration and human support seven days a week.",
+    label: "Introducing Nella",
+    date: "27 August 2026",
+    readTime: "8 min read",
+    source:
+      "Nella product and website planning documents; capabilities, deployment and support terms should be confirmed in the firm’s written scope.",
+  },
+  {
+    slug: "how-nella-works-under-the-hood",
+    title: "How Nella works under the hood: memory, model routing and cost control",
+    dek: "A technical explanation of persistence, retrieval, model selection, approvals, observability and cost mitigation in a private law-firm AI system.",
+    label: "Technical architecture",
+    date: "27 August 2026",
+    readTime: "14 min read",
+    source:
+      "Nella architecture principles, OpenAI agent and prompt-caching documentation, Microsoft 365 Copilot architecture and privacy documentation, NIST AI RMF and AWS cost-optimisation guidance.",
   },
   {
     slug: "private-ai-law-firms",
@@ -467,17 +499,6 @@ const blogPosts = [
     readTime: "10 min read",
     source:
       "OpenAI, Microsoft, NIST, ABA and EU primary or official guidance; product terminology is not used consistently across vendors.",
-  },
-  {
-    slug: "europa-legal-commons-ai-and-law-firms",
-    title:
-      "What Europa Legal Commons taught us about building AI for legal work",
-    dek: "A public, versioned legal corpus made one thing clear: useful AI needs scope, sources, structure and visible limits before it needs more confidence.",
-    label: "Behind the work",
-    date: "27 August 2026",
-    readTime: "9 min read",
-    source:
-      "Europa Legal Commons project materials in the Nella workspace, including its public corpus, package metadata, agent guide and stated usage boundaries.",
   },
 ] as const;
 
@@ -889,44 +910,86 @@ function HomePage() {
 function FeaturesSection() {
   return (
     <section
-      className="features-section"
+      className="showcase-section"
       data-motion
       id="capabilities"
       aria-labelledby="capabilities-title"
     >
-      <header className="section-heading features-heading">
+      <header className="section-heading showcase-heading">
         <p className="section-eyebrow">The work around legal work</p>
-        <h2 id="capabilities-title">Six ways Nella lightens the work around your lawyers.</h2>
+        <h2 id="capabilities-title">Ask once. Keep the matter moving.</h2>
         <p>
-          Each capability is configured around approved sources, clear permissions and a
-          responsible professional at the right checkpoint.
+          Nella turns familiar requests into prepared work, with approved sources,
+          permissions and human review kept visible.
         </p>
       </header>
-      <div className="feature-ledger" data-stagger>
-        {capabilities.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <article className={`feature-ledger-item feature-ledger-item-${index + 1}`} key={item.title}>
-              <div className="feature-ledger-mark" aria-hidden="true">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <Icon size={28} weight="thin" />
-              </div>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </div>
-              {index === 0 && (
-                <div className="feature-signal" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                </div>
-              )}
-            </article>
-          );
-        })}
+      <div className="showcase-list">
+        <article className="showcase-row">
+          <div className="showcase-visual">
+            <img src="/feature-matter-brief.webp" alt="A private legal workspace overlooking Athens at dusk" />
+            <div className="showcase-prompts" aria-label="Example requests">
+              <span>Bring me up to speed on Murphy.</span>
+              <span>What is still outstanding?</span>
+              <span>Prepare tomorrow’s meeting brief.</span>
+            </div>
+          </div>
+          <div className="showcase-copy">
+            <p className="showcase-number">01 · Matter preparation</p>
+            <h3>Bring the matter into focus.</h3>
+            <p>Ask naturally. Nella gathers the approved context, identifies what needs attention and prepares a useful next step.</p>
+            <ul>
+              <li><MagnifyingGlass size={20} aria-hidden="true" />Approved context, gathered</li>
+              <li><FileText size={20} aria-hidden="true" />Briefings prepared for review</li>
+              <li><CheckCircle size={20} aria-hidden="true" />Open points kept visible</li>
+            </ul>
+            <a className="text-link" href="/what-it-supports">Explore supported work</a>
+          </div>
+        </article>
+
+        <article className="showcase-row showcase-row-reverse">
+          <div className="showcase-visual">
+            <img src="/feature-admin-flow.webp" alt="A law firm operations desk with calendar, inbox and telephone at dusk" />
+            <div className="showcase-status" aria-label="Example prepared work">
+              <span><EnvelopeSimple size={20} aria-hidden="true" /><strong>Inbox</strong><em>3 drafts ready</em></span>
+              <span><CalendarBlank size={20} aria-hidden="true" /><strong>Diary</strong><em>Tomorrow prepared</em></span>
+              <span><Note size={20} aria-hidden="true" /><strong>Follow-up</strong><em>2 items need review</em></span>
+            </div>
+          </div>
+          <div className="showcase-copy">
+            <p className="showcase-number">02 · Daily operations</p>
+            <h3>Stay on top of the work around the work.</h3>
+            <p>Inbox threads, diary preparation and follow-ups become one calmer operating rhythm—without another interface for lawyers to learn.</p>
+            <ul>
+              <li><EnvelopeSimple size={20} aria-hidden="true" />Inbox triaged, replies drafted</li>
+              <li><CalendarBlank size={20} aria-hidden="true" />The day prepared in advance</li>
+              <li><UsersThree size={20} aria-hidden="true" />Review stays with your team</li>
+            </ul>
+            <a className="text-link" href="/how-it-works">See how Nella works</a>
+          </div>
+        </article>
+
+        <article className="showcase-row">
+          <div className="showcase-visual">
+            <img src="/feature-firm-memory.webp" alt="A professional reviewing an archive in a softly illuminated law library" />
+            <div className="showcase-source-card">
+              <span>Prepared by Nella</span>
+              <strong>Authority and deadline found</strong>
+              <p>3 approved sources checked</p>
+              <em>Ready for professional review</em>
+            </div>
+          </div>
+          <div className="showcase-copy">
+            <p className="showcase-number">03 · Firm knowledge</p>
+            <h3>Recall the right detail without losing the source.</h3>
+            <p>Nella finds the firm’s approved knowledge, carries source context forward and makes the result ready for a responsible professional to check.</p>
+            <ul>
+              <li><BookOpenText size={20} aria-hidden="true" />Firm knowledge, not generic answers</li>
+              <li><ShieldCheck size={20} aria-hidden="true" />Permissions remain in force</li>
+              <li><UsersThree size={20} aria-hidden="true" />Judgement remains human</li>
+            </ul>
+            <a className="text-link" href="/privacy-and-deployment">Understand the controls</a>
+          </div>
+        </article>
       </div>
     </section>
   );
@@ -1748,6 +1811,49 @@ function AboutPage() {
       <section
         className="about-principles"
         data-motion
+        aria-labelledby="europa-lessons-title"
+      >
+        <header className="section-heading">
+          <p className="section-eyebrow">A lesson carried into Nella</p>
+          <h2 id="europa-lessons-title">
+            Europa made the legal context impossible to hand-wave.
+          </h2>
+          <p>
+            Europa Legal Commons is a separate public project, but it is part
+            of the company story behind Nella. Building it showed us what a
+            useful legal system needs before an AI layer is added.
+          </p>
+        </header>
+        <div className="principle-grid" data-stagger>
+          <article>
+            <strong>Scope before confidence</strong>
+            <p>
+              The corpus is deliberately scoped to EU/EEA B2B software teams
+              and common commercial starting documents. A defined boundary is
+              more useful than a system that implies it covers everything.
+            </p>
+          </article>
+          <article>
+            <strong>Sources should travel with the work</strong>
+            <p>
+              Version references, package metadata, clause maps and an agent
+              guide make it possible to inspect where a document came from and
+              how it should be adapted.
+            </p>
+          </article>
+          <article>
+            <strong>Review is part of the design</strong>
+            <p>
+              Europa is a set of starting documents, not legal advice. That
+              same boundary carries into Nella: prepare useful work, show the
+              evidence and keep the responsible professional accountable.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section
+        className="about-principles"
+        data-motion
         aria-labelledby="principles-title"
       >
         <header className="section-heading">
@@ -2029,7 +2135,8 @@ function BlogPage() {
 }
 
 function BlogArticlePage({ slug }: { slug: string }) {
-  const post = blogPosts.find((item) => item.slug === slug) ?? blogPosts[0];
+  const post = blogPosts.find((item) => item.slug === slug);
+  if (!post) return <NotFoundPage />;
   const articleSources: Record<string, Array<[string, string]>> = {
     "private-ai-law-firms": [
       [
@@ -2061,7 +2168,7 @@ function BlogArticlePage({ slug }: { slug: string }) {
       ],
       [
         "EU General Data Protection Regulation",
-        "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+        "/about",
       ],
     ],
     "microsoft-copilot-for-law-firms": [
@@ -2158,19 +2265,45 @@ function BlogArticlePage({ slug }: { slug: string }) {
       ],
       ["EU AI Act", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en"],
     ],
-    "europa-legal-commons-ai-and-law-firms": [
-      ["About Nella and the project context", "/about"],
+    "introducing-nella": [
+      ["How Nella works", "/how-it-works"],
+      [
+        "What Nella supports",
+        "/what-it-supports",
+      ],
+      [
+        "Privacy and deployment",
+        "/privacy-and-deployment",
+      ],
+      [
+        "About Nella",
+        "/about",
+      ],
+    ],
+    "how-nella-works-under-the-hood": [
+      [
+        "OpenAI: A practical guide to building agents",
+        "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/",
+      ],
+      [
+        "OpenAI API: Prompt caching",
+        "https://developers.openai.com/api/docs/guides/prompt-caching",
+      ],
+      [
+        "Microsoft 365 Copilot architecture",
+        "https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-architecture",
+      ],
+      [
+        "Microsoft 365 Copilot privacy and data security",
+        "https://learn.microsoft.com/en-us/deployoffice/privacy/microsoft-365-copilot",
+      ],
       [
         "NIST AI Risk Management Framework",
         "https://www.nist.gov/itl/ai-risk-management-framework",
       ],
       [
-        "EU Artificial Intelligence Act",
-        "https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en",
-      ],
-      [
-        "GDPR — Regulation (EU) 2016/679",
-        "https://eur-lex.eu/eli/reg/2016/679/oj",
+        "AWS Well-Architected Cost Optimization Pillar",
+        "https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html",
       ],
     ],
   };
