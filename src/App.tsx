@@ -1,4 +1,7 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { AppleLogo } from "@phosphor-icons/react/dist/csr/AppleLogo";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/csr/ArrowUpRight";
 import { BookOpenText } from "@phosphor-icons/react/dist/csr/BookOpenText";
@@ -41,6 +44,8 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { fullBlogContent } from "./blogContent";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const navItems = [
   ["How it works", "/how-it-works"],
@@ -745,17 +750,61 @@ function Footer() {
 }
 
 function HomePage() {
+  const landingRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      gsap.utils.toArray<HTMLElement>(".editorial-image-panel img").forEach((image) => {
+        gsap.fromTo(
+          image,
+          { scale: 0.92, opacity: 0.72 },
+          {
+            scale: 1,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: image,
+              start: "top 88%",
+              end: "center 48%",
+              scrub: 0.8,
+            },
+          },
+        );
+      });
+
+      gsap.fromTo(
+        ".editorial-reveal-word",
+        { opacity: 0.12 },
+        {
+          opacity: 1,
+          stagger: 0.08,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".editorial-statement",
+            start: "top 78%",
+            end: "bottom 52%",
+            scrub: 0.6,
+          },
+        },
+      );
+    },
+    { scope: landingRef },
+  );
+
   return (
-    <>
+    <div className="home-page" ref={landingRef}>
       <section className="hero" aria-labelledby="hero-title">
         <div
           className="hero-copy reveal"
           style={{ "--i": 0 } as React.CSSProperties}
         >
-          <p className="hero-kicker">
-            Private virtual assistants for law firms
-          </p>
-          <h1 id="hero-title">Your firm’s private support system.</h1>
+          <p className="hero-overline">Private virtual assistants for law firms</p>
+          <h1 id="hero-title">
+            <span>Your firm’s private</span>
+            <em>support system.</em>
+          </h1>
           <p className="hero-lede">
             Built around your people, documents, systems and way of working.
             Nella helps your team find, prepare, organise and follow through
@@ -769,71 +818,9 @@ function HomePage() {
               See how it works
             </a>
           </div>
-          <div className="hero-proof" role="group" aria-label="Nella approach">
-            <span>Firm-specific</span>
-            <span>Managed by Nella</span>
-            <span>Designed around your requirements</span>
-          </div>
         </div>
-        <figure
-          className="hero-work-trail reveal"
-          style={{ "--i": 1 } as React.CSSProperties}
-        >
-          <figcaption className="sr-only">
-            Example workflow showing a request becoming prepared
-            work, with human approval before an external action.
-          </figcaption>
-          <div className="trail-topline">
-            <span>One request. A clearer next step.</span>
-            <span>Example workflow</span>
-          </div>
-          <div className="trail-request">
-            <span className="trail-label">James · 08:42</span>
-            <p>Bring me up to speed before the Murphy meeting.</p>
-          </div>
-          <div className="trail-connector" aria-hidden="true">
-            <span />
-          </div>
-          <div className="trail-prepared">
-            <div className="trail-card-head">
-              <span className="trail-label">Prepared by Nella</span>
-              <span className="trail-status">Ready to review</span>
-            </div>
-            <h2>Murphy meeting brief</h2>
-            <p className="trail-summary">
-              The medical report arrived Monday. The signed authority is still
-              outstanding.
-            </p>
-            <div
-              className="trail-sources"
-              role="group"
-              aria-label="Source context"
-            >
-              <span>3 sources checked</span>
-              <span>1 item needs attention</span>
-            </div>
-            <div className="trail-review">
-              <span>Source context available</span>
-              <span>Human review</span>
-            </div>
-          </div>
-          <div
-            className="trail-connector trail-connector-short"
-            aria-hidden="true"
-          >
-            <span />
-          </div>
-          <div className="trail-next">
-            <div>
-              <span className="trail-label">Next step</span>
-              <p>Draft follow-up for approval</p>
-            </div>
-            <span className="trail-not-sent">Not sent</span>
-          </div>
-        </figure>
       </section>
       <TrustStrip />
-      <ProviderCarousel />
       <section
         className="capabilities-section"
         data-motion
@@ -872,6 +859,8 @@ function HomePage() {
           })}
         </div>
       </section>
+      <EditorialImageSequence />
+      <ProviderCarousel />
       <section
         className="judgement-section"
         data-motion
@@ -899,7 +888,53 @@ function HomePage() {
       <PricingAnchor />
       <FaqSection />
       <PageCta />
-    </>
+    </div>
+  );
+}
+
+function EditorialImageSequence() {
+  const statement = "Knowledge, context and follow-through should move together.".split(" ");
+
+  return (
+    <section className="editorial-sequence" aria-labelledby="editorial-title">
+      <header className="editorial-sequence-heading">
+        <p className="section-eyebrow">Built around the firm</p>
+        <h2 id="editorial-title" className="editorial-statement">
+          {statement.map((word, index) => (
+            <span className="editorial-reveal-word" key={`${word}-${index}`}>
+              {word}{" "}
+              {index === 1 && <span className="editorial-inline-image" aria-hidden="true" />}
+            </span>
+          ))}
+        </h2>
+        <p>
+          Nella connects approved knowledge with the people, permissions and
+          review points that turn information into useful work.
+        </p>
+      </header>
+      <div className="editorial-image-accordion">
+        <article className="editorial-image-panel editorial-image-panel-knowledge">
+          <img
+            src="/endless.webp"
+            alt="A person standing before an expansive illuminated library"
+          />
+          <div>
+            <span>Firm knowledge</span>
+            <h3>Find the right context without losing the source.</h3>
+          </div>
+        </article>
+        <article className="editorial-image-panel editorial-image-panel-motion">
+          <img
+            src="/hrose.webp"
+            alt="A professional walking through Athens with the Acropolis beyond"
+          />
+          <div>
+            <span>Work in motion</span>
+            <h3>Carry the next step into the systems your team already uses.</h3>
+          </div>
+        </article>
+      </div>
+    </section>
   );
 }
 

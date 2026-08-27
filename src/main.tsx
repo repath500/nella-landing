@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "@fontsource-variable/geist";
-import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource/libre-baskerville/400.css";
+import "@fontsource/libre-baskerville/400-italic.css";
+import "@fontsource/libre-baskerville/700.css";
 import "./styles.css";
 import App from "./App";
 

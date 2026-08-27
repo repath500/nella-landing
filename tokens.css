@@ -23,7 +23,7 @@
   --color-shadow-soft: oklch(50% 0.03 42 / 0.055);
   --color-nav: oklch(99% 0.005 80 / 0.82);
 
-  --font-display: "Bricolage Grotesque Variable", "Arial Narrow", sans-serif;
+  --font-display: "Libre Baskerville", Georgia, serif;
   --font-body: "Geist Variable", "Segoe UI", sans-serif;
 
   --space-3xs: 0.125rem;
