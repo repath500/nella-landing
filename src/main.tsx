@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "@fontsource-variable/geist";
-import "@fontsource/libre-baskerville/400.css";
-import "@fontsource/libre-baskerville/400-italic.css";
-import "@fontsource/libre-baskerville/700.css";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
+import "@fontsource-variable/newsreader";
 import "./styles.css";
 import App from "./App";
 

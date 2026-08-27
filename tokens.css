@@ -23,8 +23,8 @@
   --color-shadow-soft: oklch(50% 0.03 42 / 0.055);
   --color-nav: oklch(99% 0.005 80 / 0.82);
 
-  --font-display: "Libre Baskerville", Georgia, serif;
-  --font-body: "Geist Variable", "Segoe UI", sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body: "Newsreader Variable", Georgia, serif;
 
   --space-3xs: 0.125rem;
   --space-2xs: 0.25rem;

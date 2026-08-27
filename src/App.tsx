@@ -821,45 +821,9 @@ function HomePage() {
         </div>
       </section>
       <TrustStrip />
-      <section
-        className="capabilities-section"
-        data-motion
-        id="capabilities"
-        aria-labelledby="capabilities-title"
-      >
-        <header className="section-heading">
-          <p className="section-eyebrow">The work around legal work</p>
-          <h2 id="capabilities-title">
-            More support for the work that surrounds your lawyers.
-          </h2>
-          <p>
-            Nella works with the systems and working habits your team already
-            trusts, with a responsible professional at the right checkpoints.
-          </p>
-        </header>
-        <div className="capability-grid" data-stagger>
-          {capabilities.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <article
-                className={item.className}
-                key={item.title}
-                style={{ "--i": index } as React.CSSProperties}
-              >
-                <div className="capability-copy">
-                  <span className="capability-icon">
-                    <Icon size={24} weight="regular" aria-hidden="true" />
-                  </span>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </div>
-                {item.content}
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      <FeaturesSection />
       <EditorialImageSequence />
+      <BirdInterlude />
       <ProviderCarousel />
       <section
         className="judgement-section"
@@ -889,6 +853,52 @@ function HomePage() {
       <FaqSection />
       <PageCta />
     </div>
+  );
+}
+
+function FeaturesSection() {
+  return (
+    <section
+      className="features-section"
+      data-motion
+      id="capabilities"
+      aria-labelledby="capabilities-title"
+    >
+      <header className="section-heading features-heading">
+        <p className="section-eyebrow">The work around legal work</p>
+        <h2 id="capabilities-title">Six ways Nella lightens the work around your lawyers.</h2>
+        <p>
+          Each capability is configured around approved sources, clear permissions and a
+          responsible professional at the right checkpoint.
+        </p>
+      </header>
+      <div className="feature-ledger" data-stagger>
+        {capabilities.map((item, index) => {
+          const Icon = item.icon;
+          return (
+            <article className={`feature-ledger-item feature-ledger-item-${index + 1}`} key={item.title}>
+              <div className="feature-ledger-mark" aria-hidden="true">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <Icon size={28} weight="thin" />
+              </div>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+              {index === 0 && (
+                <div className="feature-signal" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
@@ -935,6 +945,18 @@ function EditorialImageSequence() {
         </article>
       </div>
     </section>
+  );
+}
+
+function BirdInterlude() {
+  return (
+    <figure className="bird-interlude" data-motion>
+      <img src="/bird.webp" alt="A white bird flying through soft blue and rose light" />
+      <figcaption>
+        <span>Quiet momentum</span>
+        <p>Prepared work moves forward. Professional judgement stays in charge.</p>
+      </figcaption>
+    </figure>
   );
 }
 
@@ -993,7 +1015,6 @@ const providerItems = [
 ] as const;
 
 function ProviderCarouselSection() {
-  const [paused, setPaused] = useState(false);
   const providerSet = [...providerItems, ...providerItems];
   return (
     <section
@@ -1010,7 +1031,7 @@ function ProviderCarouselSection() {
         </p>
       </div>
       <div className="provider-viewport">
-        <div className={paused ? "provider-track is-paused" : "provider-track"}>
+        <div className="provider-track">
           {providerSet.map(([name, Icon], index) => (
             <div className="provider-item" key={`${name}-${index}`}>
               <Icon size={24} aria-hidden="true" />
@@ -1019,14 +1040,6 @@ function ProviderCarouselSection() {
           ))}
         </div>
       </div>
-      <button
-        className="provider-toggle"
-        type="button"
-        aria-pressed={paused}
-        onClick={() => setPaused((value) => !value)}
-      >
-        {paused ? "Play provider list" : "Pause provider list"}
-      </button>
     </section>
   );
 }
@@ -1138,6 +1151,27 @@ function ComparisonPreview() {
             ))}
         </TableBody>
       </Table>
+      <div className="comparison-mobile" aria-label="Comparison preview">
+        {comparisonRows.slice(0, 4).map(([category, nella, generic, internal]) => (
+          <article key={category}>
+            <h3>{category}</h3>
+            <dl>
+              <div className="comparison-mobile-nella">
+                <dt>Nella</dt>
+                <dd>{nella}</dd>
+              </div>
+              <div>
+                <dt>Generic AI</dt>
+                <dd>{generic}</dd>
+              </div>
+              <div>
+                <dt>Internal project</dt>
+                <dd>{internal}</dd>
+              </div>
+            </dl>
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
