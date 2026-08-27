@@ -249,4 +249,247 @@ export const fullBlogContent: Record<string, ReactNode> = {
 
     <p><a href="/compare">Compare the operating models</a> or <a href="/consultation">book a private consultation</a> to discuss where Microsoft 365 already serves your firm and where a firm-specific assistant could add value.</p>
   </>,
+
+  "best-ai-agents-for-law-firms": <>
+    <p>The best AI agent for a law firm in 2026 is not necessarily the newest model or the most autonomous product. It is the system that fits a defined piece of work, can access only the information it should, prepares something a professional can review, and has a clear boundary around what it may change or send.</p>
+    <p>That means there is no universal ranking. “Best” depends on the firm’s workflow, jurisdiction, information, deployment preference, integrations and governance. A Microsoft-centred firm may choose differently from a litigation practice with a large legal research subscription, an international firm with residency requirements or a smaller practice looking for a manageable first pilot.</p>
+
+    <h2>What is an AI agent in a law-firm context?</h2>
+    <p>An AI agent is a system that receives a goal and directs some of its own process and tool use to pursue it. It may retrieve approved documents, compare versions, prepare a chronology, create a task list or draft a message for review.</p>
+    <p>The key question is the boundary. An agent might read a defined matter folder and prepare a brief, while requiring approval before updating a case-management record, sharing a document, contacting a client or filing anything. Anthropic’s guidance describes permission choices such as always allow, require approval or block. Ask every vendor: what can it read, do and change, and where must it stop?</p>
+
+    <h2>Which category of AI agent suits a law firm?</h2>
+    <p>Start with categories rather than brand lists; compare the selected plan, contract, connector, region and configuration.</p>
+    <div className="article-table-wrap"><table><thead><tr><th>Category</th><th>May suit a firm that needs</th><th>Questions to verify</th></tr></thead><tbody>
+      <tr><td>General enterprise assistants</td><td>Broad drafting, research, summarisation or custom workflows using a general model.</td><td>Which plan and endpoint are in scope? What is retained, logged, connected and administered?</td></tr>
+      <tr><td>Legal AI platforms</td><td>Legal research, drafting or document analysis grounded in a specialist legal-content ecosystem.</td><td>Which jurisdictions, sources and citations are covered? How does the workflow behave when sources conflict or are missing?</td></tr>
+      <tr><td>Microsoft 365 assistants</td><td>Productivity work centred on Word, Outlook, Teams, SharePoint and other Microsoft services.</td><td>Are tenant permissions clean? Which agents, connectors and actions are allowed? What interaction data is stored?</td></tr>
+      <tr><td>Firm-specific private assistants</td><td>Cross-system work shaped around the firm’s matters, permissions, processes and approval states.</td><td>Is the architecture, implementation, support model and exit plan specific enough to review?</td></tr>
+      <tr><td>Internal builds</td><td>Maximum control or unusual workflows where the firm has a long-term engineering and operations capability.</td><td>Who owns security, evaluation, model changes, integrations, incidents, maintenance and user support?</td></tr>
+    </tbody></table></div>
+
+    <h2>What do the main product categories actually offer?</h2>
+    <p>Microsoft 365 Copilot fits firms whose work already lives in Microsoft 365. Microsoft says it can use Microsoft Graph content the user may view, including documents, emails, chats, meetings and contacts, and that prompts, responses and Graph data are not used to train foundation models. It does not repair over-shared permissions, and interaction data is stored within Microsoft 365, so tenant hygiene, retention and administration still need review. <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-privacy" target="_blank" rel="noreferrer">Read Microsoft’s privacy documentation</a>.</p>
+    <p>General enterprise assistants such as ChatGPT Business or Enterprise, the OpenAI API, Claude for Work and the Anthropic API are broader building blocks. OpenAI says business data is not used to train models by default. Anthropic says Claude for Work customers control submitted data, Anthropic acts as processor, and commercial data is not used to train its models unless the customer opts in. Verify the exact contract, feature, connector and regional path. <a href="https://openai.com/business-data/" target="_blank" rel="noreferrer">OpenAI’s terms</a> and <a href="https://support.claude.com/en/articles/9267385-does-anthropic-act-as-a-data-processor-or-controller" target="_blank" rel="noreferrer">Anthropic’s explanation</a> are starting points.</p>
+    <p>Legal AI platforms make a different promise. Thomson Reuters describes CoCounsel Legal as integrated with Westlaw and Practical Law for legal research, drafting and end-to-end workflows. That may fit firms centred on those sources, but leaves questions about firm documents, matter permissions, jurisdictional coverage and review. Treat product descriptions as claims to test.</p>
+    <p>A firm-specific private assistant is aimed at approved knowledge, matter boundaries, recurring processes, review points and the systems people already use. Nella belongs in this category. That does not make it automatically better; it makes the implementation conversation more specific. Ask for evidence about deployment, access, support, evaluation and exit.</p>
+
+    <h2>How should a firm evaluate an AI agent?</h2>
+    <p>Bring the same representative workflow to every provider. “Prepare a meeting brief from this matter’s approved documents, identify open tasks and draft a follow-up for review” is more useful than a generic demo.</p>
+    <div className="article-table-wrap"><table><thead><tr><th>Evaluation area</th><th>What good evidence looks like</th></tr></thead><tbody>
+      <tr><td>Workflow fit</td><td>Clear input, useful output, owner and reason the task matters.</td></tr>
+      <tr><td>Information boundary</td><td>Documented sources, user and matter permissions, and content/metadata separation.</td></tr>
+      <tr><td>Action boundary</td><td>Actions the agent may prepare, change, send or never perform.</td></tr>
+      <tr><td>Grounding and review</td><td>Visible sources, uncertainty and a reviewer who can correct the result.</td></tr>
+      <tr><td>Data and contract</td><td>Processing locations, retention, logs, subprocessors, deletion, export and model policy.</td></tr>
+      <tr><td>Operations</td><td>An owner for access reviews, incidents, support and ongoing evaluation.</td></tr>
+    </tbody></table></div>
+    <p>Ask what happens when a user lacks permission, documents conflict, a source is unavailable or an action is outside scope. The failure path is part of the product.</p>
+
+    <h2>What are the red flags?</h2>
+    <ul>
+      <li><strong>Autonomy without an action matrix.</strong> If a vendor cannot say what the system may read, prepare, change or send, the word “agent” is doing too much work.</li>
+      <li><strong>“No training” as the complete privacy answer.</strong> Retention, abuse monitoring, application state, backups, support access and connected tools are separate questions.</li>
+      <li><strong>Permissions treated as a checkbox.</strong> A firm needs matter, team, client, ethical-wall and departing-user scenarios tested in the actual workflow.</li>
+      <li><strong>Demo evidence only.</strong> Ask for a controlled evaluation using representative, synthetic, redacted or approved material and record the misses, not just the successes.</li>
+      <li><strong>No operating owner.</strong> Integrations, prompts, models and policies change. A firm needs a plan for monitoring, re-testing, incident response and rollback.</li>
+      <li><strong>Unverifiable confidence.</strong> A fluent answer, citation or case summary is not reliable merely because it sounds professional.</li>
+    </ul>
+
+    <h2>How can a firm run a responsible first pilot?</h2>
+    <p>Use a narrow, reversible workflow. Start with public, synthetic, carefully redacted or already-approved information. Keep external sending, filing, advice and other consequential actions disabled or approval-gated. Define success in advance: source coverage, accuracy, omissions, permission behaviour, reviewer effort, escalation and auditability.</p>
+    <p>NIST’s AI Risk Management Framework is voluntary, but its structure is useful: <strong>Govern</strong> roles and policy, <strong>Map</strong> the workflow and risks, <strong>Measure</strong> performance and failure modes, then <strong>Manage</strong> the remaining risks over time. It is not a legal compliance certificate or a replacement for local professional guidance. <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noreferrer">See the NIST AI Risk Management Framework</a>.</p>
+    <p>Set a stop condition. If the pilot cannot show what was in scope, what the system used, who could access it, what it retained or where it failed, do not expand it yet.</p>
+
+    <h2>What changes for firms operating across jurisdictions?</h2>
+    <p>Professional conduct rules, privacy law, data-transfer requirements, client mandates, court procedures and records obligations differ across jurisdictions. A global firm may need one baseline governance model plus local decisions about residency, providers, confidentiality, supervision and disclosure. Availability in a country is not evidence that a product is appropriate for every matter there.</p>
+    <p>Ask who owns the decision in each jurisdiction, which information can cross a border, and whether a client or regulator imposes stricter conditions. This is a procurement guide, not legal advice.</p>
+
+    <h2>So, which AI agent is best?</h2>
+    <p>Choose the category that matches the first workflow: Microsoft 365 Copilot for Microsoft-centred productivity; a legal AI platform for specialist research and drafting; a general enterprise assistant for broad, lower-risk work or custom development; a firm-specific private assistant for cross-system, approval-driven work; or an internal build if the firm is ready to own the technical burden.</p>
+    <p>The strongest shortlist is not a leaderboard. It is a set of plausible fits tested against the same work, information boundary and review standard. To compare that first workflow with Nella’s firm-specific private operating model, <a href="/consultation">book a private consultation</a>.</p>
+
+    <h2>Frequently asked questions</h2>
+    <h3>Are AI agents safe for law firms?</h3>
+    <p>They can support defined work responsibly, but safety depends on deployment, information, permissions, provider terms, workflow and human oversight.</p>
+    <h3>Is the most autonomous agent the best one?</h3>
+    <p>No. More autonomy can increase usefulness and the consequences of a mistake. Choose the level the firm can observe, review and govern.</p>
+    <h3>Should a firm use one AI product for everything?</h3>
+    <p>Not necessarily. Define which tool is approved for which information and workflow, and how work moves between them.</p>
+    <h3>What should a small firm do first?</h3>
+    <p>Choose one recurring workflow, use low-risk or approved information, require review, document the data path and measure failures before expanding.</p>
+  </>,
+
+  "best-ai-tools-for-small-law-firms": <>
+    <p>The best AI tool for a small law firm is usually the one that fits the systems the firm already uses, solves one defined workflow problem and does not create a second administrative job.</p>
+    <p>That means there is no universal ranking. A Microsoft-centred firm may choose differently from a firm built around Google Workspace, Clio or MyCase. The right choice depends on the firm’s information, practice area, risk appetite, budget, training capacity and ability to review the output.</p>
+
+    <h2>What are the best AI tools for small law firms?</h2>
+    <p>A practical shortlist includes suite-native assistants, flexible enterprise AI workspaces, legal-practice tools embedded in a matter system and a firm-specific managed operating layer. Treat this as a set of categories to evaluate, not a leaderboard:</p>
+    <ol>
+      <li><strong>Microsoft 365 Copilot</strong> for firms working mainly in Word, Outlook, Teams and SharePoint.</li>
+      <li><strong>Gemini for Google Workspace</strong> for firms built around Gmail, Drive, Docs and Meet.</li>
+      <li><strong>ChatGPT Business or Enterprise</strong> for flexible internal drafting, analysis and research preparation.</li>
+      <li><strong>Clio AI or Clio Work</strong> for firms already using Clio as their operational centre.</li>
+      <li><strong>MyCase 8am IQ</strong> for firms already using MyCase and wanting assistance close to the case record.</li>
+      <li><strong>A firm-specific private AI operating layer</strong> when the need extends across systems, permissions and repeatable workflows.</li>
+    </ol>
+    <p>Product availability, licensing, features, data processing and regional terms change. Verify the current position for the plan and country you would actually buy.</p>
+
+    <h2>Which tool fits the firm’s existing work environment?</h2>
+    <p>Suite-native AI is often the easiest place to begin because users already know the applications and administrators already manage the accounts. Microsoft says Microsoft 365 Copilot uses Microsoft Graph and only surfaces organisational information a user has permission to access. Google’s Workspace guidance likewise describes administrator and content-owner controls for what Gemini can access.</p>
+    <p>Those permissions are important, but neither assistant cleans up an over-shared SharePoint site, a badly organised Drive or an unclear retention policy. Existing information governance becomes part of the AI decision.</p>
+    <div className="article-table-wrap"><table><thead><tr><th>Starting point</th><th>Good fit for</th><th>Watch closely</th></tr></thead><tbody>
+      <tr><td>Microsoft 365 Copilot</td><td>Drafting, summaries and meeting support inside Microsoft apps.</td><td>Tenant permissions, agents, connectors, licensing and stored interactions.</td></tr>
+      <tr><td>Gemini for Workspace</td><td>Firms centred on Gmail, Drive, Docs and Meet.</td><td>Workspace access rules, connected apps and regional product terms.</td></tr>
+      <tr><td>ChatGPT Business or Enterprise</td><td>Flexible internal drafting and structured analysis.</td><td>Workspace policy, retention, account ownership and matter boundaries.</td></tr>
+      <tr><td>Legal-practice AI</td><td>Assistance close to the firm’s case or matter system.</td><td>Plan scope, permissions, source quality, auditability and platform dependency.</td></tr>
+      <tr><td>Private operating layer</td><td>Cross-system workflows and firm-specific governance.</td><td>Discovery, configuration, support, evaluation and exit responsibilities.</td></tr>
+    </tbody></table></div>
+
+    <h2>What should a small firm use AI for first?</h2>
+    <p>Choose a recurring task with a clear input, a visible source set, a reviewable output and a named owner. Good first candidates include an internal meeting brief, a summary of a long email thread, a first-pass task list, public research organisation or a draft based on an approved template.</p>
+    <p>Be careful with tasks where a missed detail immediately changes a client position, court deadline, filing, payment or external communication. Those may still be assisted, but the system needs stronger source grounding, review and approval controls.</p>
+
+    <h2>How much operating burden does each option create?</h2>
+    <p>The subscription is only one part of the cost. A small firm should also consider administrator time, data clean-up, integration work, staff training, prompt and template maintenance, vendor reviews, output checking, support, offboarding and access reviews.</p>
+    <p>A tool becomes expensive in practice when it adds extra logins, duplicate filing, manual copying between systems, a new approval process and a dashboard someone must remember to check. The right product should make the next action clearer, not merely produce another answer that someone must process.</p>
+
+    <h2>What privacy questions should a small firm ask?</h2>
+    <p>Privacy should be assessed against the actual deployment, not the product name. Before using client or matter information, ask:</p>
+    <ul>
+      <li>What information can the tool access?</li>
+      <li>Can access be limited by user, role, team, matter or client?</li>
+      <li>Where is information processed, stored, indexed and backed up?</li>
+      <li>Are prompts, files, outputs, logs or indexes retained?</li>
+      <li>Is firm data used to train or improve a shared model?</li>
+      <li>Which subprocessors and connected applications are involved?</li>
+      <li>Can the firm export and delete its information?</li>
+      <li>What happens when a user leaves or an incident occurs?</li>
+      <li>What human approval is required before anything is sent, filed or changed?</li>
+    </ul>
+    <p>The ABA’s Formal Opinion 512 is a useful example of professional guidance addressing competence, confidentiality, supervision, communication, candour to tribunals and fees. It is US guidance, not a global rulebook. Consider the relevant professional body, privacy regime, court rules, client mandates and practice-area requirements for the firm’s own jurisdictions.</p>
+
+    <h2>How can a small firm avoid buying another dashboard?</h2>
+    <p>Start with the work, not the tool. Write down what starts the process, which systems are involved, who is allowed to see the information, what the AI may prepare, what must remain human-approved, where the finished result should live and how you will know the process is working.</p>
+    <p>If the answer requires people to move constantly between several systems, the firm may be buying another dashboard rather than improving its operating model. A useful assistant should fit into approved channels such as email, documents, calendars, practice-management software and team messaging where possible.</p>
+
+    <h2>What should a 30-day pilot look like?</h2>
+    <div className="article-table-wrap"><table><thead><tr><th>Period</th><th>Work</th></tr></thead><tbody>
+      <tr><td>Days 1–5</td><td>Choose one workflow; define permitted and prohibited data, users, review points and success criteria.</td></tr>
+      <tr><td>Days 6–10</td><td>Configure accounts, permissions, retention settings, templates and approved instructions.</td></tr>
+      <tr><td>Days 11–20</td><td>Test realistic but controlled examples for accuracy, omissions, sources, permissions and reviewer effort.</td></tr>
+      <tr><td>Days 21–30</td><td>Record what improved and failed; decide whether to stop, adjust, expand or assess another category.</td></tr>
+    </tbody></table></div>
+    <p>NIST’s voluntary AI Risk Management Framework gives small teams a useful structure: govern roles and policy, map the workflow and risks, measure performance and failure modes, then manage the remaining risks over time.</p>
+
+    <h2>When should a small firm consider Nella?</h2>
+    <p>A firm-specific private operating layer becomes worth considering when the question is no longer “Which chatbot should we use?” but “How should support work across our firm?” That may include approved internal knowledge, matter-aware permissions, repeatable workflows, several systems and handoffs, human approval points, source requirements and ongoing monitoring.</p>
+    <p>Nella is designed for that gap: a private, managed support system built around a firm’s people, documents, systems and way of working. <a href="/consultation">Book a private consultation</a> to map one workflow and decide whether a firm-specific approach is justified.</p>
+
+    <h2>Frequently asked questions</h2>
+    <h3>Do small firms need a dedicated AI platform?</h3><p>Not always. A suite-native assistant may be enough for drafting, summarising and meeting support. A dedicated platform becomes more relevant when the firm needs matter-aware workflows, internal knowledge retrieval or cross-system coordination.</p>
+    <h3>Should a small firm choose legal-specific AI?</h3><p>Legal-specific tools may provide better workflow context, but they still require due diligence on permissions, data processing, retention, auditability, accuracy and regional availability.</p>
+    <h3>Does a small firm need an IT department?</h3><p>No, but someone must own the decisions. A partner, operations lead or trusted technology adviser should be responsible for approved use cases, access, training, review and vendor management.</p>
+    <h3>What is the safest first purchase?</h3><p>Usually the tool that fits the firm’s existing environment and supports one bounded workflow without requiring a large transformation programme. Start small, document the boundary and expand only when the evidence supports it.</p>
+  </>,
+
+  "ai-agents-vs-ai-assistants-for-law-firms": <>
+    <p>An AI assistant usually responds to a person’s request. An AI agent can pursue a defined objective through several steps, using approved tools and making bounded decisions along the way.</p>
+    <p>That does not mean an agent is an autonomous lawyer. It means the system has more responsibility for managing a workflow. The terms are not used consistently across the technology industry, so assess what the system can read, decide, change and send rather than trusting the label.</p>
+
+    <h2>What is an AI assistant?</h2>
+    <p>An AI assistant is a user-led system that helps with a task when someone asks it to do so. It may answer questions, summarise documents, draft emails, search approved information or suggest next steps. The person generally supplies the context and decides what happens next.</p>
+    <p>Typical assistant tasks include summarising an email thread, turning meeting notes into an action list, comparing contract versions, finding passages in approved documents, drafting a client update for review and preparing questions for a matter meeting.</p>
+
+    <h2>What is an AI agent?</h2>
+    <p>An AI agent manages a defined objective through multiple steps. OpenAI’s agent guidance describes systems that manage workflow execution, make decisions, recognise when work is complete or unsuccessful, and interact with external systems through tools.</p>
+    <p>An agent might interpret an objective, decide which steps are needed, retrieve information, use approved tools, assess the result and continue, stop or escalate. For example, it could prepare a weekly matter-status pack from a selected matter system and document set, then put the result in a review queue.</p>
+    <p>“Agent” does not mean unlimited autonomy. An agent can be restricted by user permissions, matter boundaries, tool access, approval gates, time limits, spending limits and mandatory escalation.</p>
+
+    <h2>What is the practical difference?</h2>
+    <div className="article-table-wrap"><table><thead><tr><th>Dimension</th><th>AI assistant</th><th>AI agent</th></tr></thead><tbody>
+      <tr><td>Initiation</td><td>Usually prompted directly by a user.</td><td>User-triggered, scheduled or event-triggered.</td></tr>
+      <tr><td>Autonomy</td><td>Produces a response, draft or recommendation.</td><td>Plans and sequences steps toward an objective.</td></tr>
+      <tr><td>Tools</td><td>May retrieve information or prepare an action.</td><td>May retrieve, update, create or send through approved tools.</td></tr>
+      <tr><td>Review</td><td>Human reviews the response or draft.</td><td>Human may review plans, checkpoints, exceptions or final action.</td></tr>
+      <tr><td>Failure modes</td><td>Incorrect, incomplete or poorly grounded output.</td><td>Those risks plus wrong tool choice, excessive action, looping or permission misuse.</td></tr>
+      <tr><td>Best fit</td><td>One-off or user-directed work.</td><td>Repeatable multi-step workflows with clear boundaries.</td></tr>
+    </tbody></table></div>
+    <p>The boundary is a spectrum. A well-designed assistant may have agent-like behaviour. A tightly controlled agent may feel like an assistant for most tasks.</p>
+
+    <h2>Why do permissions matter more than the label?</h2>
+    <p>An AI system cannot retrieve a matter file, send an email or update a practice-management record unless it has a way to do so. A tool that retrieves a document creates a different risk from one that can send external mail, delete records or change a client-facing system.</p>
+    <p>Assess each tool separately:</p>
+    <ul><li>Is it read-only or write-enabled?</li><li>Does it operate at firm, team, matter or user level?</li><li>Can it access privileged or restricted information?</li><li>Is the action reversible?</li><li>Does it require a second approval?</li><li>Is the action recorded in an audit trail?</li><li>Can the permission be withdrawn quickly?</li></ul>
+    <p>The same assistant can be low-risk in one configuration and high-risk in another. Drafting an email is different from sending it. Searching a public knowledge base is different from searching every matter folder.</p>
+
+    <h2>How might they work across legal tasks?</h2>
+    <h3>Inbox and email</h3><p>An assistant can summarise a thread and draft a response. An agent could classify incoming messages, retrieve relevant matter information, draft a response and route it for approval. A sensible boundary is: assistant summarises and drafts; agent classifies, gathers and prepares; human approves, amends and sends.</p>
+    <h3>Meetings</h3><p>An assistant can summarise a transcript and list decisions. An agent could prepare a meeting brief from approved calendars, previous minutes and selected matter documents, then draft follow-up tasks. The firm should define who can see the transcript and whether sensitive discussions are excluded.</p>
+    <h3>Documents</h3><p>An assistant can explain a document or compare clauses. An agent could receive documents through controlled intake, identify missing information, select an approved template and prepare a draft. It should not decide that the document is legally sufficient or file it as final.</p>
+    <h3>External actions</h3><p>Sending email, filing a form, changing a deadline, updating a client record or contacting a court or regulator requires the strongest controls. Technical capability is not approval. Use human gates for client-facing, irreversible, financially significant or legally consequential actions.</p>
+
+    <h2>When is an assistant the better choice?</h2>
+    <p>An assistant is often the better starting point when work is one-off, easy to review, based on a small amount of context, low-risk if delayed, primarily drafting or summarising, and not dependent on several integrations. It lets a firm learn which use cases are valuable before granting broad permissions.</p>
+
+    <h2>When should a firm consider an agent?</h2>
+    <p>An agent may be appropriate when a workflow is repeated regularly, structured enough to define success, dependent on several approved systems, time-based or event-triggered, slowed by routine handoffs and suitable for clear approval and escalation rules.</p>
+    <p>Before building one, document its inputs, sources, allowed tools, prohibited actions, stopping conditions, review points and failure response. NIST’s voluntary AI Risk Management Framework is useful for structuring those responsibilities, even though it is not legal advice or a compliance certificate.</p>
+
+    <h2>How does Nella fit?</h2>
+    <p>Nella is best understood as governed, firm-specific assistance: a private operating layer shaped around approved information, permissions, workflows, review points and provider policies. Some workflows may include agentic steps, such as gathering information or preparing a recurring work package. That does not require unlimited autonomy.</p>
+    <p>The useful design question is what Nella may read, prepare, change, send or never do—and where a professional must remain involved. <a href="/consultation">Book a private consultation</a> to map one real workflow and define a proportionate first deployment.</p>
+
+    <h2>Frequently asked questions</h2>
+    <h3>Are AI agents safe for law firms?</h3><p>They can be designed for controlled use, but safety depends on the data, permissions, tools, workflow, review process and operating environment. No label guarantees safety or compliance.</p>
+    <h3>Is the most autonomous agent the best one?</h3><p>No. More autonomy can increase usefulness and the consequences of a mistake. The right level is the one the firm can observe, review and govern.</p>
+    <h3>Should an agent be allowed to send emails?</h3><p>Only where the firm has assessed the use case, approved the permission and defined suitable controls. Client-facing or consequential messages should generally include human review.</p>
+    <h3>Can an assistant or agent replace a lawyer?</h3><p>No. These systems can support defined work, but the responsible professional remains accountable for decisions, advice, accuracy, review and communication.</p>
+  </>,
+
+  "europa-legal-commons-ai-and-law-firms": <>
+    <p>Europa Legal Commons started from a simple premise: legal AI should not begin with a blank chat window and a confident tone. It should begin with a defined corpus, visible scope, source material, versioning and a clear account of what the system does not know.</p>
+    <p>The project is a public, versioned corpus of starting documents for EU/EEA B2B software companies. It is designed to help a founder orient a draft, help counsel review a clause, and help product or operations teams understand what needs to be agreed. It is not a substitute for legal advice and it does not pretend that a template can remove context.</p>
+
+    <h2>What is Europa Legal Commons?</h2>
+    <p>Europa Legal Commons packages practical legal starting points for European software teams. The project currently presents 21 packages in Markdown and DOCX, with no signup and a CC0 1.0 licence. The visible template set includes a Mutual NDA, Data Processing Agreement, B2B SaaS Agreement, Order Form, Privacy Notice and Acceptable Use Policy.</p>
+    <p>That format matters. A document is easier to inspect when its scope, version and intended use are visible. A Markdown source is also easier to search, compare, adapt and pass into a controlled toolchain than an opaque document that only appears after a form submission.</p>
+
+    <h2>Why make the corpus useful to agents?</h2>
+    <p>People are not the only users of legal material anymore. A model may need to find a clause, identify the governing scope, compare a package version or explain what information is missing before it can help someone responsibly.</p>
+    <p>Europa Legal Commons treats the corpus as something that should be useful to people and to the tools they use. Its project interface describes machine-readable metadata, clause maps, package scopes, primary-source identifiers and an agent guide that explains what not to invent. It also exposes a lightweight agent and MCP direction rather than hiding the material inside a black-box chat experience.</p>
+    <p>The lesson is not that metadata makes legal work automatic. The lesson is that structure makes review possible. When a model can see which document it is using, what the package covers and which assumptions remain open, a professional has a better starting point for correction.</p>
+
+    <h2>What does “source-traceable” mean in practice?</h2>
+    <p>Source-traceable does not mean that every clause is universally correct. It means the person reviewing the draft can follow the material back to a package, version, source identifier or stated scope. That is a modest but important standard.</p>
+    <div className="article-table-wrap"><table><thead><tr><th>Without structure</th><th>With a structured corpus</th></tr></thead><tbody>
+      <tr><td>“Draft a GDPR-compliant DPA.”</td><td>“Start from this DPA package, read its scope, identify the parties, processing details and open choices, then produce a marked-up draft.”</td></tr>
+      <tr><td>“Make this clause market standard.”</td><td>“Show the clause, the package version, the source note and the assumptions that still need a commercial decision.”</td></tr>
+      <tr><td>“Use the law for Europe.”</td><td>“Identify the relevant EU/EEA context, the governing country, the service model and the local review needed.”</td></tr>
+    </tbody></table></div>
+    <p>This pattern is useful well beyond startup contracts. A law firm building a private assistant needs the same properties around its own precedents, matter guidance, policies and approved knowledge: defined sources, version control, access boundaries and a way to show the basis for a result.</p>
+
+    <h2>What did the project teach us about legal AI?</h2>
+    <h3>Scope beats confidence</h3><p>The first job of a legal system is to say what a package is for. A Mutual NDA, a DPA and an Acceptable Use Policy answer different questions. A general answer that blends them may sound helpful while creating more work for the reviewer.</p>
+    <h3>Versioning is part of trust</h3><p>A document that changes without a visible version is difficult to review and difficult to discuss with a client or colleague. Keeping the version beside an adapted draft gives the team a simple reference point when a clause changes.</p>
+    <h3>Agents need boundaries too</h3><p>The project’s agent-facing materials make an important distinction: retrieval, inspection and adaptation are different from invention. A tool should be able to say that a source is missing, a jurisdiction is unclear or a professional must decide.</p>
+    <h3>Accessible source files widen the review circle</h3><p>Markdown and DOCX let founders, operators, counsel and technical teams inspect the same starting material in the tools they already use. That does not replace legal review; it makes the handoff into legal review clearer.</p>
+
+    <h2>How is this relevant to Nella?</h2>
+    <p>Europa Legal Commons is not proof that Nella has already run a large law-firm deployment. It is legal-domain experience: a hands-on exploration of European legal context, structured material, source grounding and the limits of automated drafting.</p>
+    <p>Nella takes the same discipline into a different setting. A law firm’s private assistant should be shaped around the firm’s approved documents, matter permissions, internal terminology, systems, review points and provider policy. It should help a professional find and prepare work without pretending that a general model has become the responsible lawyer.</p>
+    <p>That is why Nella’s first question should be practical: what recurring piece of work needs better preparation, and what evidence would let the firm review the result? <a href="/about">Read more about the experience behind Nella</a> or <a href="/consultation">book a private consultation</a> to map one workflow.</p>
+
+    <h2>What Europa Legal Commons is not</h2>
+    <ul><li>It is not a global legal advice service.</li><li>It is not a guarantee that a template fits a particular company or transaction.</li><li>It is not a replacement for qualified professional review.</li><li>It is not evidence that an AI system can act without supervision.</li><li>It is not an excuse to hide uncertainty behind a polished interface.</li></ul>
+
+    <h2>Frequently asked questions</h2>
+    <h3>Who is Europa Legal Commons for?</h3><p>It is aimed at EU/EEA B2B software founders, in-house counsel, startup lawyers, product teams and operations teams that need a clearer starting point for common commercial documents.</p>
+    <h3>Can I sign one of the documents as-is?</h3><p>No. The project presents starting documents. Read the scope, adapt the material to the actual facts and have a qualified professional review anything you plan to sign.</p>
+    <h3>Why does this matter for law-firm AI?</h3><p>Because a firm-specific assistant also needs structured sources, versioning, access boundaries, reviewable outputs and an explicit way to handle missing or conflicting information.</p>
+    <h3>Is Europa Legal Commons the same product as Nella?</h3><p>No. Europa Legal Commons is a public legal corpus for software teams. Nella is a private, firm-specific support system for law firms. The connection is the discipline around sources, boundaries and review.</p>
+
+    <p><strong>Author/review note:</strong> This article is based on the Europa Legal Commons project in the Nella workspace and was written on 27 August 2026. It describes the project’s stated purpose and visible materials; packages and counts may change. It is general technology information, not legal advice.</p>
+  </>,
 };
