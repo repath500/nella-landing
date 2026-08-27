@@ -275,7 +275,7 @@ const privacyQuestions = [
     "Nella uses one of three deployment models: a Nella-managed private environment, a customer-controlled cloud deployment, or a local/sovereign deployment. The deployment record names the hosting region, processing locations, storage, search index, logs, backups and support access.",
   ],
   [
-    "Does Anna train on my clients' information?",
+    "Does Nella train on my clients' information?",
     "Nella does not use customer content to train shared models. The deployment record and contract name the provider, model route, retention setting and any exception before a firm sends client information.",
   ],
   [
@@ -1620,12 +1620,12 @@ function AboutPage() {
         aria-labelledby="track-title"
       >
         <header className="section-heading">
-          <p className="section-eyebrow">The experience behind Anna</p>
+          <p className="section-eyebrow">The experience behind Nella</p>
           <h2 id="track-title">
             Production autonomous systems + legal-domain experience.
           </h2>
           <p>
-            Two bodies of work shape the way we think about Anna. Neither is a
+            Two bodies of work shape the way we think about Nella. Neither is a
             substitute for evidence from a firm's own deployment; together, they
             explain the discipline behind the product.
           </p>
@@ -1668,7 +1668,7 @@ function AboutPage() {
         <header className="section-heading">
           <p className="section-eyebrow">How the pieces meet</p>
           <h2 id="principles-title">
-            Anna combines both for professional practice.
+            Nella combines both for professional practice.
           </h2>
         </header>
         <div className="about-synthesis">
@@ -1693,7 +1693,7 @@ function AboutPage() {
             ↓
           </div>
           <div className="about-synthesis-result">
-            <strong>Anna</strong>
+            <strong>Nella</strong>
             <span>Private virtual staff for law firms</span>
           </div>
         </div>
@@ -1717,7 +1717,7 @@ function AboutPage() {
         </div>
         <p>
           They need systems they can actually trust with work. That’s what we’re
-          building with Anna.
+          building with Nella.
         </p>
       </section>
       <PageCta

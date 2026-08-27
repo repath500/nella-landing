@@ -1953,9 +1953,9 @@ section[id] {
 .about-note {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.8fr);
-  gap: var(--space-3xl);
+  gap: clamp(var(--space-xl), 5vw, var(--space-2xl));
   align-items: end;
-  padding: var(--space-3xl) var(--page-gutter);
+  padding: clamp(var(--space-2xl), 7vw, var(--space-3xl)) var(--page-gutter);
   background:
     radial-gradient(40rem 24rem at 110% 120%, oklch(94% 0.03 308 / 0.6), transparent 68%),
     var(--color-paper-2);
@@ -2864,9 +2864,9 @@ section[id] {
 .about-boundary {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(14rem, 0.7fr);
-  gap: var(--space-3xl);
+  gap: clamp(var(--space-xl), 5vw, var(--space-2xl));
   align-items: end;
-  padding: var(--space-4xl) var(--page-gutter);
+  padding: clamp(var(--space-2xl), 7vw, var(--space-3xl)) var(--page-gutter);
   border-block-start: var(--rule-hair) solid var(--color-rule);
 }
 
