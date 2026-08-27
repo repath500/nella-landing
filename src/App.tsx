@@ -614,15 +614,30 @@ function usePathname() {
 
 function Navigation({ pathname }: { pathname: string }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menuOpen]);
   return (
-    <header className={scrolled ? "site-nav is-scrolled" : "site-nav"}>
-      <div className="nav-inner">
+    <>
+      <header className={`${scrolled ? "site-nav is-scrolled" : "site-nav"}${menuOpen ? " is-menu-open" : ""}`}>
+        <div className="nav-inner">
         <a className="wordmark" href="/" aria-label="Nella home">
           Nella
         </a>
@@ -638,31 +653,48 @@ function Navigation({ pathname }: { pathname: string }) {
           ))}
         </nav>
         <a className="button button-small" href="/consultation">
-          Book a private consultation
+          Private consultation <ArrowUpRight size={16} aria-hidden="true" />
         </a>
-        <details className="mobile-nav">
-          <summary>Menu</summary>
-          <nav aria-label="Mobile navigation">
-            <a href="/">Home</a>
-            {navItems.map(([label, href]) => (
-              <a
-                className={pathname === href ? "is-current" : undefined}
-                href={href}
-                key={href}
-              >
-                {label}
-              </a>
-            ))}
-            <a href="/about">About Nella</a>
-            <a href="/blog">Blog</a>
-            <a href="/pricing">Pricing approach</a>
-            <a href="/compare">Comparisons</a>
-            <a href="/resources">Resources</a>
-            <a href="/consultation">Book a private consultation</a>
-          </nav>
-        </details>
+        <button
+          className="menu-trigger"
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="kinetic-menu"
+          onClick={() => setMenuOpen((value) => !value)}
+        >
+          <span>{menuOpen ? "Close" : "Menu"}</span>
+          <i aria-hidden="true" />
+        </button>
+        </div>
+      </header>
+      <div className={menuOpen ? "kinetic-nav is-open" : "kinetic-nav"} id="kinetic-menu" aria-hidden={!menuOpen}>
+        <button className="kinetic-backdrop" type="button" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
+        <div className="kinetic-panel" role="dialog" aria-modal="true" aria-label="Navigation">
+          <div className="kinetic-group">
+            <span>Product</span>
+            <nav aria-label="Product navigation">
+              {navItems.map(([label, href], index) => (
+                <a
+                  className={pathname === href ? "is-current" : undefined}
+                  href={href}
+                  key={href}
+                  style={{ "--nav-i": index } as React.CSSProperties}
+                >
+                  <em>0{index + 1}</em>{label}<ArrowUpRight size={20} aria-hidden="true" />
+                </a>
+              ))}
+            </nav>
+          </div>
+          <div className="kinetic-group kinetic-group-company">
+            <span>Company</span>
+            <nav aria-label="Company navigation">
+              <a href="/about"><em>04</em>About Nella<ArrowUpRight size={20} aria-hidden="true" /></a>
+              <a className="kinetic-consultation" href="/consultation"><em>05</em>Book a private consultation<ArrowUpRight size={20} aria-hidden="true" /></a>
+            </nav>
+          </div>
+        </div>
       </div>
-    </header>
+    </>
   );
 }
 
@@ -713,37 +745,35 @@ function PageCta({
 function Footer() {
   return (
     <footer className="site-footer">
-      <p className="footer-statement">
-        A private assistant that works the way your firm works.
-      </p>
-      <div className="footer-links" role="group" aria-label="Footer navigation">
-        <div>
-          <strong>Nella</strong>
-          <a href="/about">About Nella</a>
-          <a href="/blog">Blog</a>
-          <a href="/resources">Resources</a>
-          <a href="/consultation">Contact</a>
+      <div className="footer-outline" aria-hidden="true">Nella</div>
+      <div className="footer-panel">
+        <div className="footer-brand">
+          <a className="footer-mark" href="/" aria-label="Nella home">N</a>
+          <p>A private support system that works the way your firm works.</p>
+          <small>© {new Date().getFullYear()} Nella. All rights reserved.</small>
         </div>
-        <div>
-          <strong>Explore</strong>
-          <a href="/how-it-works">How it works</a>
-          <a href="/what-it-supports">What it supports</a>
-          <a href="/compare">Comparisons</a>
+        <div className="footer-links" role="group" aria-label="Footer navigation">
+          <div>
+            <strong>Product</strong>
+            <a href="/how-it-works">How it works</a>
+            <a href="/what-it-supports">What it supports</a>
+            <a href="/privacy-and-deployment">Privacy and deployment</a>
+            <a href="/pricing">Pricing approach</a>
+          </div>
+          <div>
+            <strong>Company</strong>
+            <a href="/about">About Nella</a>
+            <a href="/blog">Field notes</a>
+            <a href="/resources">Resources</a>
+            <a href="/consultation">Contact</a>
+          </div>
+          <div>
+            <strong>Legal</strong>
+            <a href="/privacy-notice">Privacy notice</a>
+            <a href="/accessibility">Accessibility</a>
+            <a href="/terms">Terms</a>
+          </div>
         </div>
-        <div>
-          <strong>Trust and legal</strong>
-          <a href="/privacy-and-deployment">Privacy and deployment</a>
-          <a href="/privacy-notice">Privacy notice</a>
-          <a href="/accessibility">Accessibility</a>
-          <a href="/terms">Terms</a>
-        </div>
-      </div>
-      <div className="footer-meta">
-        <a className="wordmark" href="/">
-          Nella
-        </a>
-        <p>Private virtual assistants for law firms</p>
-        <p>© {new Date().getFullYear()} Nella</p>
       </div>
     </footer>
   );
@@ -1097,7 +1127,6 @@ function ProviderCarousel() {
     <>
       <ProviderCarouselSection />
       <InteractionChannels />
-      <div className="sticky-cta-trigger" aria-hidden="true" />
     </>
   );
 }
@@ -1250,19 +1279,6 @@ function FaqSection() {
         </details>
       </div>
     </section>
-  );
-}
-
-function StickyCta({ visible }: { visible: boolean }) {
-  return (
-    <aside
-      className={visible ? "sticky-cta is-visible" : "sticky-cta"}
-      aria-label="Consultation action"
-    >
-      <a className="button" href="/consultation">
-        Book a private consultation
-      </a>
-    </aside>
   );
 }
 
@@ -2956,7 +2972,6 @@ function NotFoundPage() {
 
 function App() {
   const pathname = usePathname();
-  const [showStickyCta, setShowStickyCta] = useState(false);
   const articleMeta = pathname.startsWith("/blog/")
     ? blogPosts.find((post) => post.slug === pathname.slice("/blog/".length))
     : undefined;
@@ -2974,22 +2989,6 @@ function App() {
       .querySelector('meta[name="description"]')
       ?.setAttribute("content", meta[1]);
     window.scrollTo({ top: 0, behavior: "auto" });
-  }, [pathname]);
-  useEffect(() => {
-    const target =
-      document.querySelector(".sticky-cta-trigger") ??
-      document.querySelector("#main-content .page-hero");
-    if (!target) return;
-    let hasIntersected = false;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) hasIntersected = true;
-        if (hasIntersected) setShowStickyCta(!entry.isIntersecting);
-      },
-      { threshold: 0 },
-    );
-    observer.observe(target);
-    return () => observer.disconnect();
   }, [pathname]);
   useEffect(() => {
     const root = document.documentElement;
@@ -3102,7 +3101,6 @@ function App() {
       <Navigation pathname={pathname} />
       <main id="main-content">{page}</main>
       <Footer />
-      <StickyCta visible={showStickyCta} />
     </div>
   );
 }

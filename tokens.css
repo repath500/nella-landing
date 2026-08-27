@@ -24,7 +24,7 @@
   --color-nav: oklch(99% 0.005 80 / 0.82);
 
   --font-display: "Instrument Serif", Georgia, serif;
-  --font-body: "Newsreader Variable", Georgia, serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
 
   --space-3xs: 0.125rem;
   --space-2xs: 0.25rem;
