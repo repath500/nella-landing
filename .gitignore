@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.vercel/
+.agents/
+.hallmark/
+.DS_Store
+*.local
+*.log
