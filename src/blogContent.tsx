@@ -492,4 +492,159 @@ export const fullBlogContent: Record<string, ReactNode> = {
 
     <p><strong>Author/review note:</strong> This article is based on the Europa Legal Commons project in the Nella workspace and was written on 27 August 2026. It describes the project’s stated purpose and visible materials; packages and counts may change. It is general technology information, not legal advice.</p>
   </>,
+
+  "introducing-nella": <>
+    <p>Nella is a private support system for law firms. It is not a generic AI subscription, a chatbot dressed up as a lawyer, or a single model that every firm is expected to use in the same way.</p>
+    <p>Nella starts with a shared foundation: the core operating patterns, controls and implementation discipline needed to support work around lawyers. That foundation is then configured for each firm’s people, systems, permissions, terminology, documents, workflows and appetite for automation.</p>
+    <p>The result is a system that can feel familiar to the people using it while remaining explicit about what it may read, prepare, change, send or never do. Nella’s team stays involved in the deployment and provides human support seven days a week, because a serious system needs somewhere to take a question when the workflow, the evidence or the boundary is unclear.</p>
+
+    <h2>What is Nella, exactly?</h2>
+    <p>Nella is the company and operating partner behind a firm-specific private assistant system. The assistant is the experience people encounter in the channels the firm already approves. The system is the larger thing: identity, access, retrieval, workflow logic, model policy, integrations, approvals, logs, evaluation, support and the processes used to improve it.</p>
+    <p>That distinction matters. A polished conversation is only one surface. The useful work happens when the system can bring together the right context, respect permissions, prepare something reviewable and leave a trace of what happened.</p>
+
+    <h2>A shared base, customised per firm</h2>
+    <p>Every firm has its own way of working. Matter types, precedent language, intake habits, naming conventions, document systems, calendars, approval chains and client expectations are not interchangeable. Nella therefore uses a common base without treating the base as the finished product.</p>
+    <div className="article-table-wrap"><table><thead><tr><th>Shared foundation</th><th>Firm-specific configuration</th></tr></thead><tbody>
+      <tr><td>Private support-system architecture</td><td>Deployment environment, region and operational responsibilities</td></tr>
+      <tr><td>Permission and approval patterns</td><td>Roles, matter boundaries, ethical walls and allowed actions</td></tr>
+      <tr><td>Workflow and evaluation methods</td><td>The firm’s first use cases, success measures and review examples</td></tr>
+      <tr><td>Provider and model policy controls</td><td>Approved routes for each data class, workflow or matter</td></tr>
+      <tr><td>Human operating support</td><td>Named people, escalation paths and the cadence of improvement</td></tr>
+    </tbody></table></div>
+
+    <h2>Where can Nella help?</h2>
+    <p>Nella is designed around the work that surrounds professional judgement. Depending on the agreed scope and integrations, that can include:</p>
+    <ul>
+      <li><strong>Your day:</strong> preparing briefings, diary context, reminders and follow-ups.</li>
+      <li><strong>Your inbox:</strong> summarising threads, identifying matters, drafting routine correspondence and surfacing next tasks.</li>
+      <li><strong>Your matters:</strong> retrieving approved material, assembling chronologies, checking status and preparing matter briefs.</li>
+      <li><strong>Your documents:</strong> working from approved templates, comparing versions, extracting detail and preparing drafts for review.</li>
+      <li><strong>Your meetings:</strong> preparing context, turning dictated notes into attendance notes and organising follow-up actions.</li>
+      <li><strong>Your research:</strong> assembling sourced packs and structured findings for a responsible professional to assess.</li>
+    </ul>
+    <p>These are workflow shapes, not a promise that every integration or feature is live for every firm. The first deployment should identify one useful, representative workflow and make its boundaries testable.</p>
+
+    <h2>What does the first deployment look like?</h2>
+    <ol>
+      <li><strong>Understand the firm.</strong> We map the people, matter types, systems, documents, safeguards and friction points that shape the work.</li>
+      <li><strong>Connect approved systems.</strong> We connect only the channels, repositories and practice systems needed for the first use case.</li>
+      <li><strong>Configure the boundaries.</strong> We define permissions, terminology, templates, provider policy, approvals and disabled actions.</li>
+      <li><strong>Test representative work.</strong> We test the experience against realistic examples, edge cases, missing information and permission boundaries.</li>
+      <li><strong>Roll out with review.</strong> People learn where Nella helps, where it pauses and how to correct or escalate a result.</li>
+      <li><strong>Measure and improve.</strong> The system is monitored, evaluated and adjusted as the firm’s work changes.</li>
+    </ol>
+    <p>This is a managed implementation rather than a self-serve sign-up. The firm remains involved in deciding what is appropriate; Nella remains involved in making the system work in practice.</p>
+
+    <h2>How much autonomy does Nella have?</h2>
+    <p>Autonomy is configured per action, not granted as a personality trait. Finding an authorised document and preparing a meeting brief may be automatic. Creating an internal task may be configurable. Drafting an external email may be reviewable. Sending an external message requires an authorised person’s approval. Filing, transferring funds or taking other consequential actions stay outside the boundary.</p>
+    <p>Nella supports the work around professional judgement. It does not provide unreviewed legal advice, replace the responsible professional or turn a model response into a decision.</p>
+
+    <h2>Why human support seven days a week?</h2>
+    <p>AI systems do not fail only in dramatic ways. More often, a document is missing, a permission is surprising, a workflow has changed, a user is unsure whether a result is safe to rely on, or the firm has a new requirement that was not part of the original configuration.</p>
+    <p>Human support gives the firm a practical route through those moments. It can help distinguish a user question from a system issue, capture an edge case for evaluation, clarify an approval path, and decide whether a workflow should be changed, paused or escalated. Seven-day support is part of the service model Nella is presenting; response times, coverage and escalation terms should be set out in the firm’s written scope.</p>
+
+    <h2>Where does Nella run?</h2>
+    <p>Nella can be discussed through three deployment patterns: a Nella-managed private environment, a customer-controlled cloud deployment, or a local or sovereign deployment where the infrastructure and support model make sense. The choice is not a badge. It changes capability, residency, latency, cost, provider policy, maintenance and who is responsible for operations.</p>
+    <p>The deployment record should name the environment, processing locations, storage, search index, logs, backups, support access, model routes and retention settings. If the answer varies by workflow or data class, that variation should be visible.</p>
+
+    <h2>What Nella is not</h2>
+    <ul>
+      <li>Not an AI lawyer or a provider of legal advice.</li>
+      <li>Not a promise that every firm can use every model, integration or deployment pattern.</li>
+      <li>Not a replacement for the firm’s professional responsibility, supervision or information governance.</li>
+      <li>Not a black box that should be trusted because the interface sounds confident.</li>
+      <li>Not a reason to give an agent unrestricted access to every matter.</li>
+    </ul>
+
+    <h2>Where should a firm start?</h2>
+    <p>Bring one recurring workflow where the input is clear, the source set is knowable, the output can be reviewed and the result would matter to the team. Nella can then help you work through the evidence, deployment, model policy, approvals and support model before a wider rollout.</p>
+    <p><a href="/how-it-works">See the implementation approach</a>, explore <a href="/privacy-and-deployment">privacy and deployment</a>, or <a href="/consultation">book a private consultation</a> to introduce Nella to your firm’s actual context.</p>
+
+    <p><strong>Author/review note:</strong> Written for Nella on 27 August 2026 from the current product and website planning documents. “Seven days a week” describes the intended service model; coverage, response times and exclusions should be confirmed contractually.</p>
+  </>,
+
+  "how-nella-works-under-the-hood": <>
+    <p>A private AI assistant for a law firm is not just a model behind a chat box. It is a chain of decisions: authenticate the person, establish the matter and policy context, retrieve only authorised information, select an appropriate model route, prepare an output, apply checks, request approval where needed, record the trace and make the result available to the team.</p>
+    <p>This article explains the architecture Nella is designed around. It is a product and engineering model, not a claim that every component is already deployed in every firm. The deployment record should be the source of truth for a particular environment.</p>
+
+    <h2>The system boundary</h2>
+    <p>At the edge, Nella can meet a user in an approved channel such as email, Microsoft Teams, a practice system or a small administration workspace. The user’s message is not sent directly to a model. It enters an orchestration layer that identifies the user, tenant, matter, workflow and requested action.</p>
+    <p>That orchestration layer is where policy becomes executable. It can decide whether the request is in scope, which sources may be searched, which tools are available, which provider route is allowed, what must be logged and whether a human approval is required before anything consequential happens.</p>
+    <div className="article-table-wrap"><table><thead><tr><th>Layer</th><th>Responsibility</th><th>Failure to prevent</th></tr></thead><tbody>
+      <tr><td>Identity and tenant</td><td>Establish who is asking and which firm environment applies.</td><td>Cross-firm or unauthorised access.</td></tr>
+      <tr><td>Matter and policy context</td><td>Apply role, matter, team, ethical-wall and data-class rules.</td><td>Retrieving information the user should not see.</td></tr>
+      <tr><td>Retrieval</td><td>Find relevant, permitted source material and preserve provenance.</td><td>Confident work built on the wrong or incomplete context.</td></tr>
+      <tr><td>Model gateway</td><td>Choose an approved model/provider route for the task and data.</td><td>Sending sensitive content through an unapproved route.</td></tr>
+      <tr><td>Action broker</td><td>Separate preparation from changing or sending something.</td><td>Unreviewed external or irreversible action.</td></tr>
+      <tr><td>Audit and operations</td><td>Record the trace, monitor quality and support correction.</td><td>Failures that cannot be explained or improved.</td></tr>
+    </tbody></table></div>
+
+    <h2>Memory is not one thing</h2>
+    <p>When people ask whether Nella has memory, they may be asking about several different mechanisms. Treating them as one feature makes both the product and the privacy conversation blurry.</p>
+    <ul>
+      <li><strong>Conversation state:</strong> the turns, files and tool results needed to continue one interaction.</li>
+      <li><strong>Working context:</strong> the matter, user, task and approved source set needed for the current workflow.</li>
+      <li><strong>Firm knowledge:</strong> approved templates, terminology, policies, precedents and process guidance that should be versioned and permissioned.</li>
+      <li><strong>Operational state:</strong> tasks, approvals, workflow status, connector cursors, evaluation results and change records.</li>
+      <li><strong>User or team preferences:</strong> small, deliberate settings such as a preferred briefing format—not a hidden archive of everything a person has ever said.</li>
+    </ul>
+    <p>Each category deserves a different retention period, access rule, deletion path and explanation. A conversation transcript may be useful for a short time; a firm template needs version control; an approval record may need to be retained under the firm’s policy; a preference should be easy to inspect and change.</p>
+
+    <h2>Persistence: what survives the request?</h2>
+    <p>Persistence means deciding what state is written to durable storage after a request completes. A robust design makes that write explicit. It does not quietly treat the model’s context window as a database.</p>
+    <p>A useful persistence record can include the request identifier, user and matter scope, source identifiers, policy version, model route, tool calls, approval events, output location, evaluation result and deletion class. The actual content retained should be minimised to what the firm needs to operate, review or evidence the workflow.</p>
+    <p>Search indexes and caches are part of this conversation. If a document is removed or a user loses access, the design needs a path for the source copy, extracted text, embeddings, index entries, cached results, logs and backups to follow the firm’s retention and deletion rules. “Deleted from the document folder” is not automatically the same as “deleted everywhere the system may have processed it.”</p>
+
+    <h2>Retrieval before reasoning</h2>
+    <p>For firm-specific work, the model should usually receive a small, relevant and authorised context rather than an entire document library. Retrieval first filters by tenant, user, role, matter and policy, then ranks the remaining material for the workflow.</p>
+    <p>Every retrieved item should carry enough provenance for the reviewer to understand the basis of the output: document name, version or date, source location and the relevant excerpt where appropriate. If the source set is incomplete or conflicting, the system should say so and ask for clarification or escalate.</p>
+    <p>This is also where persistence and memory meet. The system can remember that an approval is pending without remembering every private sentence in the conversation. It can retrieve an approved precedent by version without making the whole precedent library available to every user.</p>
+
+    <h2>Model routing: use a gateway, not a guess</h2>
+    <p>Model routing is the policy-controlled decision about which model or provider handles a task. The gateway should consider data class, matter restrictions, workflow risk, tool access, region, latency, quality requirements, cost and provider terms.</p>
+    <p>A simple routing policy might look like this:</p>
+    <div className="article-table-wrap"><table><thead><tr><th>Workload</th><th>Possible route</th><th>Control</th></tr></thead><tbody>
+      <tr><td>Public or low-risk classification</td><td>Fast, lower-cost approved model</td><td>Strict output schema and no client data.</td></tr>
+      <tr><td>Internal summarisation</td><td>Approved enterprise route</td><td>Tenant permissions, retention and source checks.</td></tr>
+      <tr><td>Matter-aware preparation</td><td>Higher-capability approved route or selected local model</td><td>Restricted context, provenance and human review.</td></tr>
+      <tr><td>External action</td><td>Model prepares; deterministic action broker executes</td><td>Explicit approval, recipient check and audit event.</td></tr>
+      <tr><td>Unsupported or ambiguous request</td><td>No model call, or human escalation</td><td>Fail closed and explain what is missing.</td></tr>
+    </tbody></table></div>
+    <p>Routing is not only about finding the cheapest model. A cheaper route that produces more rework, misses sources or requires repeated retries may cost more in total. The gateway should measure quality and operational cost together.</p>
+
+    <h2>Cost mitigation without lowering the bar</h2>
+    <p>Cost control starts before model selection. First define the workflow outcome, then remove unnecessary work from the path.</p>
+    <ol>
+      <li><strong>Retrieve narrowly.</strong> Send the relevant authorised passages rather than an entire repository or unbounded conversation history.</li>
+      <li><strong>Use deterministic software where it is better.</strong> Permissions, routing, schemas, redaction, deduplication, validation and approval state should not be delegated to a model when ordinary code can make the decision.</li>
+      <li><strong>Match model capability to task risk.</strong> Use a fast route for classification or formatting and reserve more capable reasoning for work that benefits from it.</li>
+      <li><strong>Keep outputs bounded.</strong> Clear formats, stop conditions and maximum lengths reduce cost and make review easier.</li>
+      <li><strong>Cache stable prefixes carefully.</strong> Reusable instructions, tool definitions and firm policy context can reduce repeated processing when the provider supports prompt caching. The cache policy must still be considered part of data retention and provider review.</li>
+      <li><strong>Batch non-urgent work.</strong> Scheduled summaries, index refreshes and evaluation runs may be cheaper or easier to smooth when they are not on the interactive path.</li>
+      <li><strong>Set budgets and stop conditions.</strong> Put limits on retries, tool calls, tokens, concurrency and spend by tenant or workflow.</li>
+      <li><strong>Measure rework.</strong> Track correction time, failed retrievals, escalations and repeated requests alongside token and infrastructure spend.</li>
+    </ol>
+    <p>Cost mitigation is successful only when the firm still gets a useful, reviewable result. A low invoice is not a saving if the team spends the difference checking bad drafts or repairing an uncontrolled workflow.</p>
+
+    <h2>Guardrails, approvals and the action boundary</h2>
+    <p>Guardrails should be layered. Authentication and authorisation come first. Then the system can apply scope checks, prompt-injection detection, sensitive-data controls, structured output validation, tool risk ratings and approval rules.</p>
+    <p>The most important design distinction is between preparing and acting. Nella may prepare a meeting brief, draft an external email or suggest an internal task. A person should approve consequential external actions. The action broker should verify the actor, matter, recipient, policy and approval before deterministic software sends or changes anything.</p>
+    <p>Some actions should be disabled rather than merely gated: filing a court document, transferring funds or any action the firm decides Nella must never take. A clear “never” boundary is easier to test and explain than a vague promise to be careful.</p>
+
+    <h2>Observability is part of correctness</h2>
+    <p>Logs should help answer what happened without becoming an uncontrolled copy of all client content. At minimum, the operating view should make it possible to inspect request and workflow identifiers, user and matter scope, source references, model route, tool calls, policy version, approval events, latency, cost, failure type and final status.</p>
+    <p>Quality needs its own telemetry. Keep a representative evaluation set covering retrieval, grounding, permissions, output usefulness, refusal behaviour, tool choice and approval boundaries. When a connector, model, prompt, policy or index changes, rerun the relevant tests and record the result.</p>
+    <p>NIST’s AI Risk Management Framework organises risk work around Govern, Map, Measure and Manage. That is a useful operational rhythm for a system like Nella: decide the rules, understand the context, test the behaviour and act on what the evidence shows.</p>
+
+    <h2>Human support closes the loop</h2>
+    <p>Support is not separate from architecture. A human support path provides a controlled place for uncertainty, incidents, workflow changes and user feedback. It also gives the team signals about where the system is confusing, over-reaching or missing important context.</p>
+    <p>Nella’s model includes human support seven days a week. The technical implementation should connect that support to the same operational trace as the workflow: what the user asked, what the system saw, what was prepared, what was blocked, what the human changed and whether the case should become a new evaluation or configuration rule.</p>
+
+    <h2>The architecture in one sentence</h2>
+    <p>Nella is designed as a policy-controlled workflow system around approved firm context, with models inside the system rather than the model being the system.</p>
+    <p>That gives a firm useful choices: managed private, customer-controlled cloud or local/sovereign deployment; different model routes for different workloads; durable records where the firm needs them; and human review where the consequences require it. The choices still need to be implemented, tested and documented for the particular firm.</p>
+    <p><a href="/privacy-and-deployment">Review the deployment questions</a> or <a href="/consultation">book a private consultation</a> to discuss a first workflow, data boundary, model policy and cost envelope with Nella.</p>
+
+    <p><strong>Author/review note:</strong> Written for Nella on 27 August 2026. Architecture patterns are based on the Nella planning documents and the primary sources listed below. Provider behaviour, prices, retention terms and model capabilities change; verify them for the selected deployment.</p>
+  </>,
 };
