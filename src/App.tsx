@@ -636,6 +636,8 @@ function usePathname() {
 function Navigation({ pathname }: { pathname: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
     handleScroll();
@@ -644,15 +646,73 @@ function Navigation({ pathname }: { pathname: string }) {
   }, []);
   useEffect(() => {
     if (!menuOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+    const root = document.documentElement;
+    const body = document.body;
+    const scrollPosition = window.scrollY;
+    const previousBodyStyles = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
     };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
+
+    const focusableItems = () => [
+      menuTriggerRef.current,
+      ...Array.from(
+        menuPanelRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ),
+    ].filter((item): item is HTMLElement => item !== null);
+
+    const handleMenuKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const items = focusableItems();
+      const firstItem = items[0];
+      const lastItem = items.at(-1);
+      if (!firstItem || !lastItem) return;
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
+        firstItem.focus();
+      }
+    };
+
+    root.classList.add("menu-scroll-lock");
+    body.classList.add("menu-scroll-lock");
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollPosition}px`;
+    body.style.width = "100%";
+    window.addEventListener("keydown", handleMenuKeyboard);
+    window.requestAnimationFrame(() => {
+      menuPanelRef.current?.querySelector<HTMLElement>("a[href]")?.focus({ preventScroll: true });
+    });
+
     return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
+      root.classList.remove("menu-scroll-lock");
+      body.classList.remove("menu-scroll-lock");
+      body.style.overflow = previousBodyStyles.overflow;
+      body.style.position = previousBodyStyles.position;
+      body.style.top = previousBodyStyles.top;
+      body.style.width = previousBodyStyles.width;
+      window.removeEventListener("keydown", handleMenuKeyboard);
+      menuTriggerRef.current?.focus({ preventScroll: true });
+      const previousScrollBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      window.scrollTo({ top: scrollPosition, behavior: "auto" });
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: scrollPosition, behavior: "auto" });
+        root.style.scrollBehavior = previousScrollBehavior;
+      });
     };
   }, [menuOpen]);
   return (
@@ -678,6 +738,7 @@ function Navigation({ pathname }: { pathname: string }) {
         </a>
         <button
           className="menu-trigger"
+          ref={menuTriggerRef}
           type="button"
           aria-expanded={menuOpen}
           aria-controls="kinetic-menu"
@@ -690,7 +751,7 @@ function Navigation({ pathname }: { pathname: string }) {
       </header>
       <div className={menuOpen ? "kinetic-nav is-open" : "kinetic-nav"} id="kinetic-menu" aria-hidden={!menuOpen}>
         <button className="kinetic-backdrop" type="button" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
-        <div className="kinetic-panel" role="dialog" aria-modal="true" aria-label="Navigation">
+        <div className="kinetic-panel" ref={menuPanelRef} role="dialog" aria-modal="true" aria-label="Navigation">
           <div className="kinetic-group">
             <span>Product</span>
             <nav aria-label="Product navigation">
@@ -927,11 +988,7 @@ function FeaturesSection() {
         <article className="showcase-row">
           <div className="showcase-visual">
             <img src="/feature-matter-brief.webp" alt="A private legal workspace overlooking Athens at dusk" />
-            <div className="showcase-prompts" aria-label="Example requests">
-              <span>Bring me up to speed on Murphy.</span>
-              <span>What is still outstanding?</span>
-              <span>Prepare tomorrow’s meeting brief.</span>
-            </div>
+            <AnimatedPromptBubbles />
           </div>
           <div className="showcase-copy">
             <p className="showcase-number">01 · Matter preparation</p>
@@ -992,6 +1049,118 @@ function FeaturesSection() {
         </article>
       </div>
     </section>
+  );
+}
+
+const showcaseMessages = [
+  "Bring me up to speed on Murphy.",
+  "What is still outstanding?",
+  "Prepare tomorrow’s meeting brief.",
+] as const;
+
+function AnimatedPromptBubbles() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [activeMessage, setActiveMessage] = useState(-1);
+  const [typedMessages, setTypedMessages] = useState<string[]>(() =>
+    showcaseMessages.map(() => ""),
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updateMotionPreference();
+    mediaQuery.addEventListener("change", updateMotionPreference);
+    return () => mediaQuery.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.42 },
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setTypedMessages([...showcaseMessages]);
+      setActiveMessage(-1);
+      return;
+    }
+
+    if (!isInView) return;
+
+    let cancelled = false;
+    let timeoutId: number | undefined;
+    const wait = (duration: number) =>
+      new Promise<void>((resolve) => {
+        timeoutId = window.setTimeout(resolve, duration);
+      });
+
+    const playSequence = async () => {
+      while (!cancelled) {
+        setTypedMessages(showcaseMessages.map(() => ""));
+        setActiveMessage(-1);
+        await wait(520);
+
+        for (let messageIndex = 0; messageIndex < showcaseMessages.length; messageIndex += 1) {
+          if (cancelled) return;
+          setActiveMessage(messageIndex);
+
+          const message = showcaseMessages[messageIndex];
+          for (let characterIndex = 1; characterIndex <= message.length; characterIndex += 1) {
+            if (cancelled) return;
+            setTypedMessages((current) => {
+              const next = [...current];
+              next[messageIndex] = message.slice(0, characterIndex);
+              return next;
+            });
+            await wait(characterIndex === message.length ? 460 : 38);
+          }
+        }
+
+        setActiveMessage(-1);
+        await wait(2600);
+      }
+    };
+
+    void playSequence();
+    return () => {
+      cancelled = true;
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  }, [isInView, prefersReducedMotion]);
+
+  return (
+    <div
+      className="showcase-prompts"
+      ref={containerRef}
+      role="group"
+      aria-label={`Example requests: ${showcaseMessages.join(" ")}`}
+    >
+      {showcaseMessages.map((message, index) => {
+        const isVisible = prefersReducedMotion || typedMessages[index].length > 0;
+        const isTyping = activeMessage === index && typedMessages[index] !== message;
+
+        return (
+          <span
+            className={`showcase-message-bubble ${index === 1 ? "message-right" : "message-left"} ${isVisible ? "is-visible" : ""} ${isTyping ? "is-typing" : ""}`}
+            key={message}
+            aria-hidden="true"
+          >
+            <span>{typedMessages[index] || "\u00a0"}</span>
+          </span>
+        );
+      })}
+    </div>
   );
 }
 
