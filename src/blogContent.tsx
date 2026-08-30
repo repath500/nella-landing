@@ -247,7 +247,7 @@ export const fullBlogContent: Record<string, ReactNode> = {
     <h3>What should a law firm assess first?</h3>
     <p>Start with a small number of real workflows. Define the desired outcome, information sources, user permissions, review requirements, retention needs and measures of success before choosing a product.</p>
 
-    <p><a href="/compare">Compare the operating models</a> or <a href="/consultation">book a private consultation</a> to discuss where Microsoft 365 already serves your firm and where a firm-specific assistant could add value.</p>
+    <p><a href="/comparisons">Compare the operating models</a> or <a href="/consultation">book a private consultation</a> to discuss where Microsoft 365 already serves your firm and where a firm-specific assistant could add value.</p>
   </>,
 
   "best-ai-agents-for-law-firms": <>

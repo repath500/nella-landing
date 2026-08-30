@@ -1,0 +1,29 @@
+# Nella
+
+> Nella is a private support system for law firms, configured around a firm’s people, documents, systems, permissions and way of working.
+
+## Canonical pages
+
+- [Home](https://meetnella.com/): private AI assistants and support systems for law firms.
+- [How it works](https://meetnella.com/how-it-works): discovery, configuration, testing, rollout and ongoing improvement.
+- [What it supports](https://meetnella.com/what-it-supports): day preparation, inboxes, matters, documents, meetings and research.
+- [Privacy and deployment](https://meetnella.com/privacy-and-deployment): deployment patterns, data boundaries, permissions, retention, provider policy and approvals.
+- [About Nella](https://meetnella.com/about): the team and experience behind Nella.
+- [Comparisons](https://meetnella.com/comparisons): evidence-safe comparisons across legal AI platforms, Microsoft Copilot and internal builds.
+- [Blog](https://meetnella.com/blog): articles, comparisons and notes from Team Nella.
+- [Resources](https://meetnella.com/resources): practical guidance for responsible adoption.
+- [Private consultation](https://meetnella.com/consultation): discuss a firm’s first workflow and deployment requirements.
+
+## What Nella is and is not
+
+- Nella is a managed, firm-specific operating layer around approved information, workflows, permissions, model policy, approvals and human review.
+- Nella can be discussed through a Nella-managed private environment, a customer-controlled cloud deployment, or a local or sovereign deployment when the architecture supports it.
+- Nella supports preparation and organisation around professional judgement. It does not provide unreviewed legal advice or replace the responsible professional.
+- Capabilities, integrations, provider routes, support coverage, retention and deployment terms depend on the written scope for the particular firm.
+- Consequential external actions should be approval-gated; some actions should remain disabled.
+
+## Editorial principles
+
+- Articles use direct answers, clear headings, lists, tables and primary sources where available.
+- Product and legal guidance changes. Readers should verify current provider terms and local professional guidance before relying on a note.
+- Nella’s public content is general information, not legal advice.

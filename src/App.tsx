@@ -44,10 +44,23 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { fullBlogContent } from "./blogContent";
+import DemoPage from "./DemoPage";
+import {
+  absoluteUrl,
+  buildJsonLd,
+  DEFAULT_SOCIAL_IMAGE,
+  DEFAULT_SOCIAL_IMAGE_ALT,
+  type ArticleSeo,
+  type BreadcrumbEntry,
+  type CollectionEntry,
+  type FaqEntry,
+  SITE_NAME,
+} from "./seo";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const navItems = [
+  ["See the demo", "/demo"],
   ["How it works", "/how-it-works"],
   ["What it supports", "/what-it-supports"],
   ["Privacy and deployment", "/privacy-and-deployment"],
@@ -341,6 +354,29 @@ const privacyQuestions = [
   ],
 ] as const;
 
+const homepageFaqs: readonly FaqEntry[] = [
+  {
+    question: "Does Nella train on client data?",
+    answer:
+      "That depends on the agreed deployment and provider policy. It should be answered with the specific evidence, contractual terms and retention model for the environment being discussed.",
+  },
+  {
+    question: "Can Nella run in our cloud?",
+    answer:
+      "Nella can run in a customer-controlled cloud. The deployment plan defines the architecture, responsibilities, support and cost.",
+  },
+  {
+    question: "Does Nella provide legal advice?",
+    answer:
+      "No. Nella supports preparation and organisation around professional judgement. The responsible professional remains accountable for advice, conclusions, approvals and consequential actions.",
+  },
+  {
+    question: "Where should we start?",
+    answer:
+      "Start with one recurring workflow where the sources, human checkpoint and useful outcome can be described clearly and tested with representative work.",
+  },
+];
+
 const privacyGuidance = [
   [
     "Ireland",
@@ -382,6 +418,8 @@ const aboutTracks = [
 const blogPosts = [
   {
     slug: "ai-adoption-questions-for-law-firm-leaders",
+    category: "articles",
+    seoTitle: "AI adoption questions for law-firm leaders | Nella",
     title: "The questions a law-firm leader should ask before adopting AI",
     dek: "A serious first conversation starts with workflow, permissions and accountability — not a demo of the newest model.",
     label: "Field note",
@@ -392,6 +430,8 @@ const blogPosts = [
   },
   {
     slug: "privacy-questions-for-a-law-firm-ai-provider",
+    category: "articles",
+    seoTitle: "AI privacy questions for law firms | Nella",
     title: "13 privacy questions to ask an AI provider before a pilot",
     dek: "The useful privacy conversation is specific enough to answer where data goes, who can act, what is logged and how deletion works.",
     label: "Trust and privacy",
@@ -402,6 +442,8 @@ const blogPosts = [
   },
   {
     slug: "managed-private-customer-cloud-or-local",
+    category: "comparisons",
+    seoTitle: "Private AI deployment models for law firms | Nella",
     title: "Managed private, customer cloud or local?",
     dek: "Deployment is not a badge. It is a set of trade-offs across capability, residency, operations, provider policy and cost.",
     label: "Deployment",
@@ -412,6 +454,8 @@ const blogPosts = [
   },
   {
     slug: "evaluate-an-assistant-on-real-work",
+    category: "articles",
+    seoTitle: "How to evaluate AI on legal work | Nella",
     title: "How to evaluate an assistant on real legal work",
     dek: "A trustworthy evaluation measures the workflow, the evidence, the boundary conditions and the human review — not just the answer in a chat window.",
     label: "Evaluation",
@@ -422,6 +466,8 @@ const blogPosts = [
   },
   {
     slug: "introducing-nella",
+    category: "from-team-nella",
+    seoTitle: "Introducing Nella: private AI for law firms | Nella",
     title: "Introducing Nella: a private support system for law firms",
     dek: "Nella is a managed system with a shared foundation, firm-specific configuration and human support seven days a week.",
     label: "Introducing Nella",
@@ -432,6 +478,8 @@ const blogPosts = [
   },
   {
     slug: "how-nella-works-under-the-hood",
+    category: "from-team-nella",
+    seoTitle: "How Nella’s private AI system works | Nella",
     title: "How Nella works under the hood: memory, model routing and cost control",
     dek: "A technical explanation of persistence, retrieval, model selection, approvals, observability and cost mitigation in a private law-firm AI system.",
     label: "Technical architecture",
@@ -442,6 +490,8 @@ const blogPosts = [
   },
   {
     slug: "private-ai-law-firms",
+    category: "articles",
+    seoTitle: "Private AI for law firms: practical guide | Nella",
     title: "What is private AI for law firms? A practical guide",
     dek: "Private AI is less about a model label and more about who can access the firm’s information, where it is processed and how the work is governed.",
     label: "Private AI",
@@ -452,6 +502,8 @@ const blogPosts = [
   },
   {
     slug: "can-law-firms-use-chatgpt-with-client-information",
+    category: "articles",
+    seoTitle: "ChatGPT and client information for law firms | Nella",
     title: "Can a law firm use ChatGPT with client information?",
     dek: "A practical risk framework for data paths, retention, access, matter permissions and safer pilots across jurisdictions.",
     label: "Trust and privacy",
@@ -462,6 +514,8 @@ const blogPosts = [
   },
   {
     slug: "microsoft-copilot-for-law-firms",
+    category: "comparisons",
+    seoTitle: "Microsoft Copilot for law firms | Nella",
     title: "Microsoft Copilot for law firms: is it enough?",
     dek: "Copilot may be a sensible productivity layer. The question is whether it also covers your firm’s repeatable workflows, knowledge and governance.",
     label: "Comparison",
@@ -472,6 +526,8 @@ const blogPosts = [
   },
   {
     slug: "best-ai-agents-for-law-firms",
+    category: "comparisons",
+    seoTitle: "Best AI agents for law firms in 2026 | Nella",
     title: "Best AI agents for law firms in 2026: a practical evaluation guide",
     dek: "Compare AI agent categories by workflow, information, permissions, deployment, integrations and governance — not by hype or leaderboard.",
     label: "Evaluation",
@@ -482,6 +538,8 @@ const blogPosts = [
   },
   {
     slug: "best-ai-tools-for-small-law-firms",
+    category: "comparisons",
+    seoTitle: "Best AI tools for small law firms | Nella",
     title: "Best AI tools for small law firms in 2026: a practical shortlist",
     dek: "Compare practical AI options by workflow fit, privacy, setup burden, training needs and the amount of operating work they create.",
     label: "Buying guide",
@@ -492,6 +550,8 @@ const blogPosts = [
   },
   {
     slug: "ai-agents-vs-ai-assistants-for-law-firms",
+    category: "comparisons",
+    seoTitle: "AI agents vs assistants for law firms | Nella",
     title: "AI agents vs AI assistants for law firms: what’s the difference?",
     dek: "Understand autonomy, permissions, tools, review, failure modes and the practical boundary between an assistant and an agent.",
     label: "Explainer",
@@ -500,7 +560,206 @@ const blogPosts = [
     source:
       "OpenAI, Microsoft, NIST, ABA and EU primary or official guidance; product terminology is not used consistently across vendors.",
   },
+  {
+    slug: "europa-legal-commons-ai-and-law-firms",
+    category: "from-team-nella",
+    seoTitle: "Europa Legal Commons and legal AI | Nella",
+    title: "What Europa Legal Commons taught us about legal AI",
+    dek: "A public legal corpus gave us a practical way to think about sources, structure, versioning and reviewable AI work.",
+    label: "From the team",
+    date: "27 August 2026",
+    readTime: "9 min read",
+    source:
+      "Europa Legal Commons project materials and Nella product and website planning documents; the public corpus and its packages may change.",
+  },
 ] as const;
+
+const blogCategories = [
+  {
+    id: "articles",
+    label: "Articles",
+    eyebrow: "Practical guidance",
+    title: "Questions worth slowing down for.",
+    description:
+      "Clear, sourced reading for the decisions that sit before a pilot: adoption, privacy, private AI and evaluation.",
+    linkLabel: "Read the article",
+  },
+  {
+    id: "comparisons",
+    label: "Comparisons",
+    eyebrow: "Make the trade-offs visible",
+    title: "Compare the options before you commit.",
+    description:
+      "Balanced pieces about deployment models, workplace assistants, legal AI products and the cost of building internally.",
+    linkLabel: "Read the comparison",
+  },
+  {
+    id: "from-team-nella",
+    label: "From Team Nella",
+    eyebrow: "The people and product behind Nella",
+    title: "How we think, build and work with firms.",
+    description:
+      "Notes about who we are, what Nella is, and the experience and principles shaping the system around it.",
+    linkLabel: "Read the note",
+  },
+] as const;
+
+const articleFaqs: Record<string, readonly FaqEntry[]> = {
+  "private-ai-law-firms": [
+    {
+      question: "Is private AI the same as a private ChatGPT account?",
+      answer:
+        "No. A private account may offer additional business controls, but private AI includes data access, permissions, retention, governance and workflow design.",
+    },
+    {
+      question: "Can private AI be used with client information?",
+      answer:
+        "That depends on the system, contract, configuration, applicable professional rules and the firm’s own risk assessment. Do not assume that any “enterprise” or “secure” label is sufficient.",
+    },
+    {
+      question: "Does private AI replace lawyers or professional judgement?",
+      answer:
+        "No. It can assist with defined tasks, but responsibility for decisions, advice, review and client communication remains with the relevant professionals.",
+    },
+    {
+      question: "Is on-premise always the best option?",
+      answer:
+        "No. On-premise may suit particular infrastructure or residency requirements, but it brings substantial operational responsibilities.",
+    },
+    {
+      question: "Where should a firm start?",
+      answer:
+        "Start with one bounded workflow. Define the information involved, permitted users, review process, retention requirements and success criteria before expanding.",
+    },
+  ],
+  "can-law-firms-use-chatgpt-with-client-information": [
+    {
+      question: "Is ChatGPT automatically unsafe for lawyers?",
+      answer:
+        "No. But no product label removes the need to assess data handling, access, retention, permissions and professional duties.",
+    },
+    {
+      question: "Does “no training” mean the information is deleted immediately?",
+      answer:
+        "No. Training, operational retention, chat history, logs, backups and application state are separate questions.",
+    },
+    {
+      question: "What is the safest first use case?",
+      answer:
+        "Usually a bounded workflow using public, synthetic, redacted or already-approved information, with no autonomous external action and a clear human review step.",
+    },
+  ],
+  "microsoft-copilot-for-law-firms": [
+    {
+      question: "Is Microsoft Copilot safe for law firms?",
+      answer:
+        "It can provide enterprise protections and follow Microsoft 365 permissions, but safety depends on the actual plan, tenant configuration, permissions, policies and use case. It does not remove the need for governance, training or human review.",
+    },
+    {
+      question: "Does Microsoft Copilot provide legal advice?",
+      answer:
+        "No. Copilot can generate or summarise content, but legal work must be assessed and verified by appropriately responsible professionals.",
+    },
+    {
+      question: "Is a private AI assistant automatically better than Copilot?",
+      answer:
+        "No. Its value depends on scope, controls, data handling, integrations, implementation and governance. “Private” is not a guarantee by itself.",
+    },
+    {
+      question: "What should a law firm assess first?",
+      answer:
+        "Start with a small number of real workflows. Define the desired outcome, information sources, user permissions, review requirements, retention needs and measures of success before choosing a product.",
+    },
+  ],
+  "best-ai-agents-for-law-firms": [
+    {
+      question: "Are AI agents safe for law firms?",
+      answer:
+        "They can support defined work responsibly, but safety depends on deployment, information, permissions, provider terms, workflow and human oversight.",
+    },
+    {
+      question: "Is the most autonomous agent the best one?",
+      answer:
+        "No. More autonomy can increase usefulness and the consequences of a mistake. Choose the level the firm can observe, review and govern.",
+    },
+    {
+      question: "Should a firm use one AI product for everything?",
+      answer:
+        "Not necessarily. Define which tool is approved for which information and workflow, and how work moves between them.",
+    },
+    {
+      question: "What should a small firm do first?",
+      answer:
+        "Choose one recurring workflow, use low-risk or approved information, require review, document the data path and measure failures before expanding.",
+    },
+  ],
+  "best-ai-tools-for-small-law-firms": [
+    {
+      question: "Do small firms need a dedicated AI platform?",
+      answer:
+        "Not always. A suite-native assistant may be enough for drafting, summarising and meeting support. A dedicated platform becomes more relevant when the firm needs matter-aware workflows, internal knowledge retrieval or cross-system coordination.",
+    },
+    {
+      question: "Should a small firm choose legal-specific AI?",
+      answer:
+        "Legal-specific tools may provide better workflow context, but they still require due diligence on permissions, data processing, retention, auditability, accuracy and regional availability.",
+    },
+    {
+      question: "Does a small firm need an IT department?",
+      answer:
+        "No, but someone must own the decisions. A partner, operations lead or trusted technology adviser should be responsible for approved use cases, access, training, review and vendor management.",
+    },
+    {
+      question: "What is the safest first purchase?",
+      answer:
+        "Usually the tool that fits the firm’s existing environment and supports one bounded workflow without requiring a large transformation programme. Start small, document the boundary and expand only when the evidence supports it.",
+    },
+  ],
+  "ai-agents-vs-ai-assistants-for-law-firms": [
+    {
+      question: "Are AI agents safe for law firms?",
+      answer:
+        "They can be designed for controlled use, but safety depends on the data, permissions, tools, workflow, review process and operating environment. No label guarantees safety or compliance.",
+    },
+    {
+      question: "Is the most autonomous agent the best one?",
+      answer:
+        "No. More autonomy can increase usefulness and the consequences of a mistake. The right level is the one the firm can observe, review and govern.",
+    },
+    {
+      question: "Should an agent be allowed to send emails?",
+      answer:
+        "Only where the firm has assessed the use case, approved the permission and defined suitable controls. Client-facing or consequential messages should generally include human review.",
+    },
+    {
+      question: "Can an assistant or agent replace a lawyer?",
+      answer:
+        "No. These systems can support defined work, but the responsible professional remains accountable for decisions, advice, accuracy, review and communication.",
+    },
+  ],
+  "europa-legal-commons-ai-and-law-firms": [
+    {
+      question: "Who is Europa Legal Commons for?",
+      answer:
+        "It is aimed at EU/EEA B2B software founders, in-house counsel, startup lawyers, product teams and operations teams that need a clearer starting point for common commercial documents.",
+    },
+    {
+      question: "Can I sign one of the documents as-is?",
+      answer:
+        "No. The project presents starting documents. Read the scope, adapt the material to the actual facts and have a qualified professional review anything you plan to sign.",
+    },
+    {
+      question: "Why does this matter for law-firm AI?",
+      answer:
+        "Because a firm-specific assistant also needs structured sources, versioning, access boundaries, reviewable outputs and an explicit way to handle missing or conflicting information.",
+    },
+    {
+      question: "Is Europa Legal Commons the same product as Nella?",
+      answer:
+        "No. Europa Legal Commons is a public legal corpus for software teams. Nella is a private, firm-specific support system for law firms. The connection is the discipline around sources, boundaries and review.",
+    },
+  ],
+};
 
 const comparisonCards = [
   [
@@ -555,70 +814,283 @@ const comparisonCards = [
 
 const routeMeta: Record<string, [string, string]> = {
   "/": [
-    "Nella | Private virtual assistants for law firms",
-    "Nella gives your law firm its own private support system, built around your people, documents, systems and way of working.",
+    "Private AI assistants for law firms | Nella",
+    "Private AI assistants for law firms, configured around your matters, documents, permissions and workflows. Explore Nella’s managed deployment model.",
   ],
   "/how-it-works": [
-    "How it works | Nella",
-    "Understand how Nella is discovered, configured, tested, rolled out and improved with your firm.",
+    "How private AI assistants work with law firms | Nella",
+    "See how Nella is configured, tested and rolled out with your firm’s systems, permissions, workflows and review points.",
   ],
   "/what-it-supports": [
-    "What it supports | Nella",
-    "Explore the practical workflows Nella can support around your law firm’s day, inbox, matters, documents, meetings and research.",
+    "AI workflows for law firms | Nella",
+    "Explore how a private AI assistant can support law-firm work across matters, documents, meetings, inboxes, research and daily preparation.",
   ],
   "/privacy-and-deployment": [
-    "Privacy and deployment | Nella",
-    "Explore Nella’s deployment patterns, control model and the evidence to discuss before a firm-specific deployment.",
+    "Private AI deployment and privacy for law firms | Nella",
+    "Understand private AI deployment for law firms: data boundaries, permissions, retention, model policy, approvals, auditability and support.",
   ],
   "/privacy": [
-    "Privacy questions | Nella",
-    "A detailed, plain-language guide to data location, model policy, access, actions, logging, deletion and subprocessors.",
+    "Private AI deployment and privacy for law firms | Nella",
+    "Understand private AI deployment for law firms: data boundaries, permissions, retention, model policy, approvals, auditability and support.",
   ],
   "/about": [
-    "About Nella | Private support systems for law firms",
-    "Nella is the company and implementation partner behind a private support system for law firms.",
+    "About Nella | Private AI for law firms",
+    "Meet Nella, the implementation and operating partner for firm-specific private AI support systems for law firms.",
   ],
   "/pricing": [
-    "Pricing approach | Nella",
-    "Nella’s commercial model is shaped around deployment, implementation, workflows, support and operating requirements.",
+    "Private AI pricing for law firms | Nella",
+    "Nella pricing is scoped around deployment, workflows, integrations, rollout, support and the operating requirements of your law firm.",
   ],
   "/compare": [
-    "Compare approaches | Nella",
-    "Compare Nella with a generic AI subscription or an internal automation project using evidence-safe categories.",
+    "Legal AI comparisons for law firms | Nella",
+    "Evidence-led comparisons of legal AI platforms, Microsoft Copilot, practice-management assistants and internal builds for law firms.",
   ],
   "/comparisons": [
-    "Comparisons | Nella",
-    "Compare Nella with legal AI platforms, practice-management assistants, Microsoft Copilot and internal builds.",
+    "Legal AI comparisons for law firms | Nella",
+    "Evidence-led comparisons of legal AI platforms, Microsoft Copilot, practice-management assistants and internal builds for law firms.",
   ],
   "/compareisons": [
-    "Comparisons | Nella",
-    "Compare Nella with legal AI platforms, practice-management assistants, Microsoft Copilot and internal builds.",
+    "Legal AI comparisons for law firms | Nella",
+    "Evidence-led comparisons of legal AI platforms, Microsoft Copilot, practice-management assistants and internal builds for law firms.",
   ],
   "/blog": [
-    "Blog | Nella",
-    "Field notes on private AI infrastructure, legal workflows, privacy, deployment and evaluation.",
+    "AI articles and comparisons for law firms | Nella",
+    "Articles, comparisons and notes from Team Nella on private AI, legal workflows, privacy, deployment, evaluation and responsible adoption.",
   ],
   "/resources": [
-    "Resources | Nella",
-    "Practical guidance for law firms considering private support systems, governance and responsible adoption.",
+    "Law firm AI guides and resources | Nella",
+    "Practical, reviewable guides for law firms evaluating private AI, provider privacy, deployment models, workflows and responsible adoption.",
   ],
   "/consultation": [
-    "Book a private consultation | Nella",
-    "Start a private conversation about your firm’s workflows, systems, deployment and first pilot.",
+    "Talk about private AI for your firm | Nella",
+    "Discuss your law firm’s workflows, systems, privacy requirements and first private AI pilot with the Nella team.",
+  ],
+  "/demo": [
+    "Private AI assistant demo for law firms | Nella",
+    "See a private AI assistant prepare matter context, surface review work and open source documents in this interactive Nella demo.",
   ],
   "/privacy-notice": [
     "Privacy notice | Nella",
-    "Draft privacy notice page for Nella, subject to legal review before publication.",
+    "Nella’s privacy notice, including website data practices and visitor choices. This draft is subject to review before publication.",
   ],
   "/terms": [
     "Terms | Nella",
-    "Draft terms page for Nella, subject to legal review before publication.",
+    "Nella’s website and service terms. This draft is subject to review before publication.",
   ],
   "/accessibility": [
     "Accessibility | Nella",
-    "Nella’s accessibility commitments and contact route.",
+    "Nella’s accessibility commitments, contact route and information about how the site is designed to be usable.",
   ],
 };
+
+const canonicalPaths: Record<string, string> = {
+  "/privacy": "/privacy-and-deployment",
+  "/compare": "/comparisons",
+  "/compareisons": "/comparisons",
+};
+
+const noindexPaths = new Set(["/privacy-notice", "/terms", "/accessibility"]);
+
+const breadcrumbNames: Record<string, string> = {
+  "/how-it-works": "How it works",
+  "/what-it-supports": "What it supports",
+  "/privacy-and-deployment": "Privacy and deployment",
+  "/about": "About Nella",
+  "/pricing": "Pricing",
+  "/comparisons": "Comparisons",
+  "/resources": "Resources",
+  "/blog": "Blog",
+  "/consultation": "Private consultation",
+  "/demo": "Interactive demo",
+  "/privacy-notice": "Privacy notice",
+  "/terms": "Terms",
+  "/accessibility": "Accessibility",
+};
+
+type SeoHeadProps = {
+  pathname: string;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  noindex?: boolean;
+  article?: ArticleSeo;
+  breadcrumbs?: readonly BreadcrumbEntry[];
+  faqs?: readonly FaqEntry[];
+  collection?: readonly CollectionEntry[];
+};
+
+function upsertMeta(
+  id: string,
+  attributes: Record<string, string>,
+  content: string,
+) {
+  const attributeSelector = attributes.name
+    ? `meta[name="${attributes.name}"]`
+    : `meta[property="${attributes.property}"]`;
+  let element = document.getElementById(id) as HTMLMetaElement | null;
+  if (!element) {
+    element = document.head.querySelector<HTMLMetaElement>(attributeSelector);
+  }
+  if (!element) {
+    element = document.createElement("meta");
+    document.head.appendChild(element);
+  }
+  element.id = id;
+  Object.entries(attributes).forEach(([name, value]) => {
+    element?.setAttribute(name, value);
+  });
+  element.content = content;
+}
+
+function removeMeta(id: string) {
+  document.getElementById(id)?.remove();
+}
+
+function upsertJsonLd(content: string) {
+  let element = document.getElementById("nella-jsonld") as HTMLScriptElement | null;
+  if (!element) {
+    element = document.createElement("script");
+    element.id = "nella-jsonld";
+    element.type = "application/ld+json";
+    document.head.appendChild(element);
+  }
+  element.textContent = content;
+}
+
+function upsertLink(id: string, attributes: Record<string, string>) {
+  const rel = attributes.rel;
+  let element = document.getElementById(id) as HTMLLinkElement | null;
+  if (!element && rel) {
+    element = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
+  }
+  if (!element) {
+    element = document.createElement("link");
+    document.head.appendChild(element);
+  }
+  element.id = id;
+  Object.entries(attributes).forEach(([name, value]) => {
+    element?.setAttribute(name, value);
+  });
+}
+
+function SeoHead({
+  pathname,
+  title,
+  description,
+  canonicalPath,
+  noindex = false,
+  article,
+  breadcrumbs = [],
+  faqs = [],
+  collection,
+}: SeoHeadProps) {
+  const canonicalUrl = absoluteUrl(canonicalPath);
+  useEffect(() => {
+    document.title = title;
+    upsertLink("nella-canonical", {
+      rel: "canonical",
+      href: canonicalUrl,
+    });
+
+    const robots = noindex
+      ? "noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+      : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
+    const metaTags: Array<[
+      string,
+      Record<string, string>,
+      string,
+    ]> = [
+      ["nella-meta-description", { name: "description" }, description],
+      ["nella-meta-robots", { name: "robots" }, robots],
+      ["nella-meta-googlebot", { name: "googlebot" }, robots],
+      [
+        "nella-meta-author",
+        { name: "author" },
+        article ? "Nella editorial team" : SITE_NAME,
+      ],
+      ["nella-og-title", { property: "og:title" }, title],
+      ["nella-og-description", { property: "og:description" }, description],
+      ["nella-og-url", { property: "og:url" }, canonicalUrl],
+      [
+        "nella-og-type",
+        { property: "og:type" },
+        article ? "article" : "website",
+      ],
+      ["nella-og-site-name", { property: "og:site_name" }, SITE_NAME],
+      ["nella-og-image", { property: "og:image" }, DEFAULT_SOCIAL_IMAGE],
+      [
+        "nella-og-image-alt",
+        { property: "og:image:alt" },
+        DEFAULT_SOCIAL_IMAGE_ALT,
+      ],
+      ["nella-og-image-width", { property: "og:image:width" }, "1536"],
+      ["nella-og-image-height", { property: "og:image:height" }, "1024"],
+      ["nella-og-image-type", { property: "og:image:type" }, "image/jpeg"],
+      ["nella-twitter-card", { name: "twitter:card" }, "summary_large_image"],
+      ["nella-twitter-title", { name: "twitter:title" }, title],
+      ["nella-twitter-description", { name: "twitter:description" }, description],
+      ["nella-twitter-url", { name: "twitter:url" }, canonicalUrl],
+      ["nella-twitter-image", { name: "twitter:image" }, DEFAULT_SOCIAL_IMAGE],
+      [
+        "nella-twitter-image-alt",
+        { name: "twitter:image:alt" },
+        DEFAULT_SOCIAL_IMAGE_ALT,
+      ],
+    ];
+    metaTags.forEach(([id, attributes, content]) => {
+      upsertMeta(id, attributes, content);
+    });
+
+    const articleTags: Array<[
+      string,
+      string,
+      string | undefined,
+    ]> = [
+      [
+        "nella-article-published",
+        "article:published_time",
+        article?.datePublished,
+      ],
+      [
+        "nella-article-modified",
+        "article:modified_time",
+        article?.dateModified,
+      ],
+      ["nella-article-section", "article:section", article?.section],
+      [
+        "nella-article-author",
+        "article:author",
+        article ? absoluteUrl("/about#editorial-team") : undefined,
+      ],
+    ];
+    articleTags.forEach(([id, property, content]) => {
+      if (content) {
+        upsertMeta(id, { property }, content);
+      } else {
+        removeMeta(id);
+      }
+    });
+
+    return () => {
+      articleTags.forEach(([id]) => removeMeta(id));
+    };
+  }, [article, canonicalUrl, description, noindex, pathname, title]);
+
+  const jsonLd = buildJsonLd({
+    title,
+    description,
+    canonicalPath,
+    article,
+    breadcrumbs,
+    faqs,
+    collection,
+  });
+  const jsonLdContent = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+  useEffect(() => {
+    upsertJsonLd(jsonLdContent);
+  }, [jsonLdContent]);
+  return null;
+}
 
 function usePathname() {
   const [pathname, setPathname] = useState(
@@ -770,8 +1242,8 @@ function Navigation({ pathname }: { pathname: string }) {
           <div className="kinetic-group kinetic-group-company">
             <span>Company</span>
             <nav aria-label="Company navigation">
-              <a href="/about"><em>04</em>About Nella<ArrowUpRight size={20} aria-hidden="true" /></a>
-              <a className="kinetic-consultation" href="/consultation"><em>05</em>Book a private consultation<ArrowUpRight size={20} aria-hidden="true" /></a>
+              <a href="/about"><em>05</em>About Nella<ArrowUpRight size={20} aria-hidden="true" /></a>
+              <a className="kinetic-consultation" href="/consultation"><em>06</em>Book a private consultation<ArrowUpRight size={20} aria-hidden="true" /></a>
             </nav>
           </div>
         </div>
@@ -837,6 +1309,7 @@ function Footer() {
         <div className="footer-links" role="group" aria-label="Footer navigation">
           <div>
             <strong>Product</strong>
+            <a href="/demo">See the demo</a>
             <a href="/how-it-works">How it works</a>
             <a href="/what-it-supports">What it supports</a>
             <a href="/privacy-and-deployment">Privacy and deployment</a>
@@ -845,7 +1318,7 @@ function Footer() {
           <div>
             <strong>Company</strong>
             <a href="/about">About Nella</a>
-            <a href="/blog">Field notes</a>
+            <a href="/blog">Blog</a>
             <a href="/resources">Resources</a>
             <a href="/consultation">Contact</a>
           </div>
@@ -1006,11 +1479,7 @@ function FeaturesSection() {
         <article className="showcase-row showcase-row-reverse">
           <div className="showcase-visual">
             <img src="/feature-admin-flow.webp" alt="A law firm operations desk with calendar, inbox and telephone at dusk" />
-            <div className="showcase-status" aria-label="Example prepared work">
-              <span><EnvelopeSimple size={20} aria-hidden="true" /><strong>Inbox</strong><em>3 drafts ready</em></span>
-              <span><CalendarBlank size={20} aria-hidden="true" /><strong>Diary</strong><em>Tomorrow prepared</em></span>
-              <span><Note size={20} aria-hidden="true" /><strong>Follow-up</strong><em>2 items need review</em></span>
-            </div>
+            <AnimatedStatusBubbles />
           </div>
           <div className="showcase-copy">
             <p className="showcase-number">02 · Daily operations</p>
@@ -1058,13 +1527,41 @@ const showcaseMessages = [
   "Prepare tomorrow’s meeting brief.",
 ] as const;
 
+const statusMessages = [
+  "Inbox\n3 drafts ready",
+  "Diary\nTomorrow prepared",
+  "Follow-up\n2 items need review",
+] as const;
+
 function AnimatedPromptBubbles() {
+  return <AnimatedMessageBubbles messages={showcaseMessages} />;
+}
+
+function AnimatedStatusBubbles() {
+  return (
+    <AnimatedMessageBubbles
+      className="showcase-status-bubbles"
+      messages={statusMessages}
+      ariaLabel="Example prepared work: Inbox, 3 drafts ready. Diary, tomorrow prepared. Follow-up, 2 items need review."
+    />
+  );
+}
+
+function AnimatedMessageBubbles({
+  messages,
+  className = "",
+  ariaLabel,
+}: {
+  messages: readonly string[];
+  className?: string;
+  ariaLabel?: string;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [activeMessage, setActiveMessage] = useState(-1);
   const [typedMessages, setTypedMessages] = useState<string[]>(() =>
-    showcaseMessages.map(() => ""),
+    messages.map(() => ""),
   );
 
   useEffect(() => {
@@ -1091,7 +1588,7 @@ function AnimatedPromptBubbles() {
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      setTypedMessages([...showcaseMessages]);
+      setTypedMessages([...messages]);
       setActiveMessage(-1);
       return;
     }
@@ -1107,15 +1604,15 @@ function AnimatedPromptBubbles() {
 
     const playSequence = async () => {
       while (!cancelled) {
-        setTypedMessages(showcaseMessages.map(() => ""));
+        setTypedMessages(messages.map(() => ""));
         setActiveMessage(-1);
         await wait(520);
 
-        for (let messageIndex = 0; messageIndex < showcaseMessages.length; messageIndex += 1) {
+        for (let messageIndex = 0; messageIndex < messages.length; messageIndex += 1) {
           if (cancelled) return;
           setActiveMessage(messageIndex);
 
-          const message = showcaseMessages[messageIndex];
+          const message = messages[messageIndex];
           for (let characterIndex = 1; characterIndex <= message.length; characterIndex += 1) {
             if (cancelled) return;
             setTypedMessages((current) => {
@@ -1137,23 +1634,23 @@ function AnimatedPromptBubbles() {
       cancelled = true;
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     };
-  }, [isInView, prefersReducedMotion]);
+  }, [isInView, messages, prefersReducedMotion]);
 
   return (
     <div
-      className="showcase-prompts"
+      className={`showcase-prompts ${className}`.trim()}
       ref={containerRef}
       role="group"
-      aria-label={`Example requests: ${showcaseMessages.join(" ")}`}
+      aria-label={ariaLabel ?? `Example requests: ${messages.join(" ")}`}
     >
-      {showcaseMessages.map((message, index) => {
+      {messages.map((message, index) => {
         const isVisible = prefersReducedMotion || typedMessages[index].length > 0;
         const isTyping = activeMessage === index && typedMessages[index] !== message;
 
         return (
           <span
             className={`showcase-message-bubble ${index === 1 ? "message-right" : "message-left"} ${isVisible ? "is-visible" : ""} ${isTyping ? "is-typing" : ""}`}
-            key={message}
+            key={`${message}-${index}`}
             aria-hidden="true"
           >
             <span>{typedMessages[index] || "\u00a0"}</span>
@@ -1381,7 +1878,7 @@ function ComparisonPreview() {
             not just access to a model.
           </p>
         </div>
-        <a className="text-link" href="/compare">
+        <a className="text-link" href="/comparisons">
           See the full comparison
         </a>
       </div>
@@ -1478,37 +1975,12 @@ function FaqSection() {
         <h2 id="faq-title">Before you book a conversation.</h2>
       </header>
       <div className="faq-list" data-stagger>
-        <details>
-          <summary>Does Nella train on client data?</summary>
-          <p>
-            That depends on the agreed deployment and provider policy. It should
-            be answered with the specific evidence, contractual terms and
-            retention model for the environment being discussed.
-          </p>
-        </details>
-        <details>
-          <summary>Can Nella run in our cloud?</summary>
-          <p>
-            Nella can run in a customer-controlled cloud. The deployment plan
-            defines the architecture, responsibilities, support and cost.
-          </p>
-        </details>
-        <details>
-          <summary>Does Nella provide legal advice?</summary>
-          <p>
-            No. Nella supports preparation and organisation around professional
-            judgement. The responsible professional remains accountable for
-            advice, conclusions, approvals and consequential actions.
-          </p>
-        </details>
-        <details>
-          <summary>Where should we start?</summary>
-          <p>
-            Start with one recurring workflow where the sources, human
-            checkpoint and useful outcome can be described clearly and tested
-            with representative work.
-          </p>
-        </details>
+        {homepageFaqs.map((faq) => (
+          <details key={faq.question}>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
       </div>
     </section>
   );
@@ -1933,6 +2405,7 @@ function AboutPage() {
       </section>
       <section
         className="about-track-section"
+        id="editorial-team"
         data-motion
         aria-labelledby="track-title"
       >
@@ -2234,9 +2707,8 @@ function ResourcesPage() {
           <div>
             <strong>See every field note</strong>
             <p>
-              The full editorial index lives at <a href="/blog">/blog</a>.
-              Comparisons are kept separate so the editorial library stays
-              useful.
+              The full editorial index lives at <a href="/blog">/blog</a>,
+              organized into articles, comparisons and notes from Team Nella.
             </p>
           </div>
         </div>
@@ -2254,8 +2726,8 @@ function BlogPage() {
     <>
       <PageIntro
         eyebrow="Blog"
-        title="Field notes for firms thinking carefully about AI."
-        body="Notes on private infrastructure, legal workflows, privacy, deployment and evaluation. Written for people who have to be accountable for the system after the demo."
+        title="The right note for the question in front of you."
+        body="Articles, comparisons and notes from Team Nella for firms thinking carefully about AI — and the people who have to be accountable for the system after the demo."
       />
       <section
         className="blog-index-section"
@@ -2268,31 +2740,73 @@ function BlogPage() {
             <h2 id="blog-index-title">The questions worth slowing down for.</h2>
           </div>
           <p>
-            Published pieces are dated and sourced. Product claims and vendor
-            terms should be checked again before a procurement decision.
+            Published pieces are dated and sourced. Start with the kind of
+            question you are asking, then check product claims and vendor terms
+            again before a procurement decision.
           </p>
         </header>
-        <div className="blog-list" data-stagger>
-          {blogPosts.map((post, index) => (
-            <article
-              key={post.slug}
-              className={
-                index === 0 ? "blog-card blog-card-featured" : "blog-card"
-              }
-            >
-              <div className="blog-card-meta">
-                <span>{post.label}</span>
-                <span>{post.readTime}</span>
-              </div>
-              <h3>
-                <a href={`/blog/${post.slug}`}>{post.title}</a>
-              </h3>
-              <p>{post.dek}</p>
-              <a className="text-link" href={`/blog/${post.slug}`}>
-                Read the note <ArrowUpRight size={17} aria-hidden="true" />
-              </a>
-            </article>
-          ))}
+        <nav className="blog-category-nav" aria-label="Browse blog categories">
+          <span>Browse by</span>
+          <div>
+            {blogCategories.map((category) => {
+              const count = blogPosts.filter(
+                (post) => post.category === category.id,
+              ).length;
+              return (
+                <a href={`#${category.id}`} key={category.id}>
+                  <span>{category.label}</span>
+                  <small>{count} {count === 1 ? "piece" : "pieces"}</small>
+                </a>
+              );
+            })}
+          </div>
+        </nav>
+        <div className="blog-category-list">
+          {blogCategories.map((category) => {
+            const posts = blogPosts.filter(
+              (post) => post.category === category.id,
+            );
+            return (
+              <section
+                className={`blog-category blog-category-${category.id}`}
+                id={category.id}
+                key={category.id}
+                aria-labelledby={`${category.id}-title`}
+              >
+                <header className="blog-category-heading">
+                  <div>
+                    <p className="section-eyebrow">{category.eyebrow}</p>
+                    <h2 id={`${category.id}-title`}>{category.title}</h2>
+                  </div>
+                  <p>{category.description}</p>
+                </header>
+                <div className="blog-list" data-stagger>
+                  {posts.map((post, index) => (
+                    <article
+                      key={post.slug}
+                      className={
+                        category.id === "articles" && index === 0
+                          ? "blog-card blog-card-featured"
+                          : "blog-card"
+                      }
+                    >
+                      <div className="blog-card-meta">
+                        <span>{post.label}</span>
+                        <span>{post.readTime}</span>
+                      </div>
+                      <h3>
+                        <a href={`/blog/${post.slug}`}>{post.title}</a>
+                      </h3>
+                      <p>{post.dek}</p>
+                      <a className="text-link" href={`/blog/${post.slug}`}>
+                        {category.linkLabel} <ArrowUpRight size={17} aria-hidden="true" />
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       </section>
       <PageCta
@@ -2306,6 +2820,7 @@ function BlogPage() {
 function BlogArticlePage({ slug }: { slug: string }) {
   const post = blogPosts.find((item) => item.slug === slug);
   if (!post) return <NotFoundPage />;
+  const category = blogCategories.find((item) => item.id === post.category);
   const articleSources: Record<string, Array<[string, string]>> = {
     "private-ai-law-firms": [
       [
@@ -2337,7 +2852,7 @@ function BlogArticlePage({ slug }: { slug: string }) {
       ],
       [
         "EU General Data Protection Regulation",
-        "/about",
+        "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
       ],
     ],
     "microsoft-copilot-for-law-firms": [
@@ -2978,35 +3493,21 @@ function BlogArticlePage({ slug }: { slug: string }) {
     fullBlogContent[post.slug] ?? articleContent[post.slug];
   const articleDate =
     post.date === "27 August 2026" ? "2026-08-27" : "2026-08-26";
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.dek,
-    datePublished: articleDate,
-    dateModified: articleDate,
-    author: { "@type": "Organization", name: "Nella" },
-    publisher: {
-      "@type": "Organization",
-      name: "Nella",
-      url: "https://meetnella.com",
-    },
-    mainEntityOfPage: `https://meetnella.com/blog/${post.slug}`,
-  };
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(articleSchema)}
-      </script>
       <PageIntro eyebrow={post.label} title={post.title} body={post.dek}>
         <div className="article-meta">
-          <span>{post.date}</span>
+          <time dateTime={articleDate}>Published {post.date}</time>
           <span>{post.readTime}</span>
         </div>
+        <p className="article-byline">
+          By <a rel="author" href="/about#editorial-team">Nella editorial team</a>
+          <span aria-hidden="true"> · </span>Reviewed {post.date}
+        </p>
       </PageIntro>
-      <article className="article-body">
+      <article className="article-body" aria-labelledby="page-title">
         <div className="article-prose">{renderedContent}</div>
-        <aside className="article-source">
+        <aside className="article-source" aria-label="Source and review information">
           <p className="section-eyebrow">Source and review note</p>
           <p>{post.source}</p>
           <p>
@@ -3014,20 +3515,22 @@ function BlogArticlePage({ slug }: { slug: string }) {
             the relevant provider terms and local professional guidance before
             relying on this note.
           </p>
-          <div>
-            <p className="section-eyebrow">Primary sources</p>
-            <ul>
-              {(articleSources[post.slug] ?? []).map(([label, href]) => (
-                <li key={href}>
-                  <a href={href} target="_blank" rel="noreferrer">
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <a className="text-link" href="/blog">
-            Back to the blog
+          {(articleSources[post.slug] ?? []).length > 0 && (
+            <div>
+              <p className="section-eyebrow">Primary sources</p>
+              <ul>
+                {(articleSources[post.slug] ?? []).map(([label, href]) => (
+                  <li key={href}>
+                    <a href={href} target="_blank" rel="noreferrer">
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <a className="text-link" href={`/blog#${post.category}`}>
+            Back to {category?.label ?? "the blog"}
           </a>
         </aside>
       </article>
@@ -3280,17 +3783,64 @@ function App() {
   const meta =
     routeMeta[pathname] ??
     (articleMeta
-      ? [articleMeta.title + " | Nella", articleMeta.dek]
+      ? [articleMeta.seoTitle, articleMeta.dek]
       : [
-          "Nella | Private virtual assistants for law firms",
-          "Nella gives your law firm its own private support system.",
+          "Page not found | Nella",
+          "The Nella page you requested could not be found.",
         ]);
+  const canonicalPath = canonicalPaths[pathname] ?? pathname;
+  const articleDate = articleMeta
+    ? articleMeta.date === "27 August 2026"
+      ? "2026-08-27"
+      : "2026-08-26"
+    : undefined;
+  const article: ArticleSeo | undefined = articleMeta && articleDate
+    ? {
+        headline: articleMeta.title,
+        description: articleMeta.dek,
+        urlPath: `/blog/${articleMeta.slug}`,
+        datePublished: articleDate,
+        dateModified: articleDate,
+        section:
+          blogCategories.find((category) => category.id === articleMeta.category)
+            ?.label ?? articleMeta.label,
+      }
+    : undefined;
+  const breadcrumbs: readonly BreadcrumbEntry[] = articleMeta
+    ? [
+        { name: "Home", path: "/" },
+        { name: "Blog", path: "/blog" },
+        { name: articleMeta.title, path: `/blog/${articleMeta.slug}` },
+      ]
+    : pathname !== "/" && routeMeta[pathname]
+      ? [
+          { name: "Home", path: "/" },
+          {
+            name: breadcrumbNames[canonicalPath] ?? meta[0].replace(/\s*\|.*$/, ""),
+            path: canonicalPath,
+          },
+        ]
+      : [];
+  const faqs: readonly FaqEntry[] =
+    pathname === "/"
+      ? homepageFaqs
+      : pathname === "/privacy-and-deployment" || pathname === "/privacy"
+        ? privacyQuestions.map(([question, answer]) => ({ question, answer }))
+        : articleMeta
+          ? articleFaqs[articleMeta.slug] ?? []
+          : [];
+  const collection: readonly CollectionEntry[] | undefined = pathname === "/blog"
+    ? blogPosts.map((post) => ({
+        name: post.title,
+        path: `/blog/${post.slug}`,
+      }))
+    : undefined;
+  const noindex =
+    noindexPaths.has(pathname) || (!routeMeta[pathname] && !articleMeta);
   useEffect(() => {
-    document.title = meta[0];
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute("content", meta[1]);
-    window.scrollTo({ top: 0, behavior: "auto" });
+    if (!window.location.hash) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
   }, [pathname]);
   useEffect(() => {
     const root = document.documentElement;
@@ -3358,6 +3908,9 @@ function App() {
     case "/consultation":
       page = <ConsultationPage />;
       break;
+    case "/demo":
+      page = <DemoPage />;
+      break;
     case "/privacy-notice":
       page = (
         <LegalPlaceholderPage
@@ -3397,6 +3950,17 @@ function App() {
   }
   return (
     <div className="page-frame" id="top">
+      <SeoHead
+        pathname={pathname}
+        title={meta[0]}
+        description={meta[1]}
+        canonicalPath={canonicalPath}
+        noindex={noindex}
+        article={article}
+        breadcrumbs={breadcrumbs}
+        faqs={faqs}
+        collection={collection}
+      />
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
